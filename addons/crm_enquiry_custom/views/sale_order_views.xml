@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Sale Order Form View -->
+    <record id="view_sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_create_revision" type="object" string="Revision"
+                        class="oe_stat_button" icon="fa-file-text-o"/>
+            </xpath>
+
+            <!-- Add fields in the header area after other_ref -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="project_type_id" options="{'no_create': True}"/>
+                <field name="consignee" options="{'no_create': True}"/>
+                <field name="notify" options="{'no_create': True}"/>
+                <field name="form_invoice_seq" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="revision" options="{'no_create': True}"/>
+                <field name="enquiry_id" options="{'no_create': True}"/>
+                <field name="project_reference_id" options="{'no_create': True}"/>
+            </xpath>
+
+            <!-- Add note field to sale order line - invisible -->
+            <xpath expr="//field[@name='order_line']//list//field[@name='name']" position="after">
+                <field name="note" optional="hide"/>
+            </xpath>
+
+            <!-- Add Office Memo page in notebook -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Office Memo" name="office_memo">
+                    <group>
+                        <group string="Bank Account">
+                            <field name="partner_bank_id"/>
+                        </group>
+                        <group string="Bank Details" invisible="not partner_bank_id">
+                            <field name="bank_iban"/>
+                            <field name="bank_cx_code"/>
+                            <field name="bank_address"/>
+                            <field name="bank_account_number"/>
+                            <field name="bank_currency"/>
+                        </group>
+                    </group>
+                    <group string="Payment Schedule">
+                        <field name="payment_schedule" widget="html"/>
+                    </group>
+                    <group>
+                        <group string="Office Memo">
+                            <field name="engineering_id" options="{'no_create': True}"/>
+                            <field name="planning_purchase_id" options="{'no_create': True}"/>
+                            <field name="accounts_id" options="{'no_create': True}"/>
+                        </group>
+                        <group string="">
+                            <field name="operations_id" options="{'no_create': True}"/>
+                            <field name="testing_id" options="{'no_create': True}"/>
+                            <field name="store_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//sheet/notebook/page[last()]" position="after">
+                <page string="Terms &amp; Conditions" name="terms_conditions">
+                    <field name="new_term_ids">
+                        <list string="Terms" editable="bottom">
+                            <field name="name"/>
+                            <field name="term_description"/>
+                            <field name="qty_in_nos" sum="Total Quantity"/>
+                            <field name="delivery_date"/>
+                        </list>
+                    </field>
+                    <group name="note_group" col="6" class="mt-2 mt-md-0">
+                        <field name="delivery_order_note" placeholder="Enter Delivery Order notes here..." colspan="2"
+                               nolabel="1" widget="html"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

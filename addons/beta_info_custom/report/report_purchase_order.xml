@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="custom_purchase_order_paper_format" model="report.paperformat">
+            <field name="name">Custom Purchase Order Format</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>      <!-- top margin in mm -->
+            <field name="margin_bottom">10</field>   <!-- bottom margin in mm -->
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+        <record id="purchase_order_report_id" model="ir.actions.report">
+            <field name="name">Contract Agreement:Purchase Order</field>
+            <field name="model">purchase.requisition</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">beta_info_custom.purchase_order_report_template_id</field>
+            <field name="print_report_name">'Contract Agreement:Purchase Order - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="purchase_requisition.model_purchase_requisition"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="beta_info_custom.custom_purchase_order_paper_format"/>
+        </record>
+
+    </data>
+</odoo>

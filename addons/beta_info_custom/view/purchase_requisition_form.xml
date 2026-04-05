@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_purchase_requisition_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.requisition.form.inherit</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+                <field name="reference" position="after">
+                    <field name="payment_term_id"/>
+                    <field name="delivery_terms"/>
+                    <field name="contract_period"/>
+                </field>
+
+                <xpath expr="//field[@name='price_unit']" position="after">
+                    <field name="weight_kg_unit" optional="show"/>
+                    <field name="contract_period" optional="show"/>
+                    <field name="total_weight_kg_monthly" optional="show"/>
+                    <field name="unit_price_per_kg" optional="show"/>
+                    <field name="monthly_amount" optional="show"/>
+                    <field name="monthly_contract_qty" optional="show"/>
+                    <field name="monthly_contract_total_weight" optional="show"/>
+                    <field name="monthly_contract_amount" optional="show"/>
+                    <field name="delivery_terms" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- Add Project Reference after Enquiry Reference on Sale Order form -->
+  <record id="view_order_form_inherit_beta_project_ref" model="ir.ui.view">
+    <field name="name">sale.order.form.beta.project.ref</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+      <!-- Insert right after our custom Enquiry Reference field -->
+      <xpath expr="//field[@name='x_enquiry_reference']" position="after">
+        <field name="x_project_id"
+               required="1"
+               placeholder="Select a project…"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>

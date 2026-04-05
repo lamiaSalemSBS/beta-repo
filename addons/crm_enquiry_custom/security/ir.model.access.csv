@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_enquiry_custom,access_crm_enquiry_custom,model_crm_enquiry_custom,,1,1,1,1
+access_crm_enquiry_line,access_crm_enquiry_line,model_crm_enquiry_line,,1,1,1,1
+access_crm_enquiry_detail,access_crm_enquiry_detail,model_crm_enquiry_detail,,1,1,1,1
+access_enquiry_wizard,access_enquiry_wizard,model_enquiry_wizard,,1,1,1,1
+access_crm_enquiry_project,access_crm_enquiry_project,model_crm_enquiry_project,,1,1,1,1
+access_technical_parameter,access_technical_parameter,model_technical_parameter,,1,1,1,1
+access_technical_parameter_item,access_technical_parameter_item,model_technical_parameter_item,,1,1,1,1
+access_crm_enquiry_project_type,access_crm_enquiry_project_type,model_crm_enquiry_project_type,,1,1,1,1
+access_sale_order_term,access_sale_order_term,model_sale_order_term,,1,1,1,1
+access_crm_enquiry_detail_template,access_crm_enquiry_detail_template,model_crm_enquiry_detail_template,,1,1,1,1
+access_crm_enquiry_detail_template_line,access_crm_enquiry_detail_template_line,model_crm_enquiry_detail_template_line,,1,1,1,1

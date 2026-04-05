@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Technical Parameter Form View -->
+    <record id="view_technical_parameter_form" model="ir.ui.view">
+        <field name="name">technical.parameter.form</field>
+        <field name="model">technical.parameter</field>
+        <field name="arch" type="xml">
+            <form string="Technical Parameter">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="unit"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Items">
+                            <field name="item_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Technical Parameter List View -->
+    <record id="view_technical_parameter_list" model="ir.ui.view">
+        <field name="name">technical.parameter.list</field>
+        <field name="model">technical.parameter</field>
+        <field name="arch" type="xml">
+            <list string="Technical Parameters">
+                <field name="name"/>
+                <field name="unit"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Technical Parameter Search View -->
+    <record id="view_technical_parameter_search" model="ir.ui.view">
+        <field name="name">technical.parameter.search</field>
+        <field name="model">technical.parameter</field>
+        <field name="arch" type="xml">
+            <search string="Search Technical Parameters">
+                <field name="name"/>
+                <field name="unit"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Technical Parameter Action -->
+    <record id="action_technical_parameter" model="ir.actions.act_window">
+        <field name="name">Technical Parameters</field>
+        <field name="res_model">technical.parameter</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Technical Parameter
+            </p>
+            <p>
+                Define technical parameters with their units and possible item values.
+            </p>
+        </field>
+    </record>
+
+
+
+    <!-- Technical Parameter Item Form View -->
+    <record id="view_technical_parameter_item_form" model="ir.ui.view">
+        <field name="name">technical.parameter.item.form</field>
+        <field name="model">technical.parameter.item</field>
+        <field name="arch" type="xml">
+            <form string="Technical Parameter Item">
+                <sheet>
+                    <group>
+                        <field name="parameter_id"/>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Technical Parameter Item List View -->
+    <record id="view_technical_parameter_item_list" model="ir.ui.view">
+        <field name="name">technical.parameter.item.list</field>
+        <field name="model">technical.parameter.item</field>
+        <field name="arch" type="xml">
+            <list string="Technical Parameter Items">
+                <field name="parameter_id"/>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+     <!-- Menu -->
+    <menuitem id="menu_technical_parameter"
+              name="Item Enquiry"
+              parent="crm.crm_menu_config"
+              action="action_technical_parameter"
+              sequence="100"/>
+</odoo>

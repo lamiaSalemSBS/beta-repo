@@ -1,0 +1,517 @@
+<odoo>
+    <template id="report_commercial_invoice_custom">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <div class="header">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+
+                                    <td style="width: 65%; vertical-align: top;">
+                                        <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
+                                             style="max-height: 80px; max-width: 200px;" alt="Company Logo"/>
+                                    </td>
+
+                                    <td style="width: 35%; text-align: left; vertical-align: top; font-size: 12px; padding-left:70px;">
+                                        <strong>
+                                            <span t-field="doc.company_id.name"/>
+                                        </strong>
+                                        <br/>
+                                        <span t-field="doc.company_id.street"/>
+                                        <t t-if="doc.company_id.street2">,
+                                            <span t-field="doc.company_id.street2"/>
+                                        </t>
+                                        <br/>
+                                        <span t-field="doc.company_id.city"/>,
+                                        <span t-field="doc.company_id.state_id.name"/>
+                                        <br/>
+                                        <t t-if="doc.company_id.phone">Tel:
+                                            <span t-field="doc.company_id.phone"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="doc.company_id.email">Email:
+                                            <span t-field="doc.company_id.email"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="doc.company_id.website">Website:
+                                            <span t-field="doc.company_id.website"/>
+                                            <br/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="text-center"
+                                 style="background-color: #008b8a; color: white; padding: 10px; margin-bottom: 20px;">
+                                <h2 style="margin: 0;">COMMERCIAL / TAX INVOICE</h2>
+                            </div>
+                        </div>
+                        <table style="width: 100%; border-collapse: collapse; border: 1px solid black; margin-bottom: 0px;">
+
+                            <tr>
+
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;  font-size: 11px; width:30%;">
+                                    Manufacturer / Producer / Beneficiary
+                                    <br></br>
+                                    (Invoicing Party)
+                                </td>
+
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; width:30%;">
+                                    Consignee
+                                </td>
+
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; width:20%;">Invoice
+                                    No.
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px; width:20%;">
+                                    <span t-field="doc.name"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="6"
+                                    style="border: 1px solid black; padding: 5px; font-size: 12px; vertical-align: top;">
+                                    <span t-field="doc.company_id.name"/>
+                                    <br/>
+                                    <span t-field="doc.company_id.street"/>
+                                    <t t-if="doc.company_id.street2">,
+                                        <span t-field="doc.company_id.street2"/>
+                                    </t>
+                                    <br/>
+                                    <span t-field="doc.company_id.city"/>,
+                                    <span t-field="doc.company_id.state_id.name"/>
+                                    <br/>
+                                    <t t-if="doc.company_id.phone">Tel:
+                                        <span t-field="doc.company_id.phone"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.email">Email:
+                                        <span t-field="doc.company_id.email"/>
+                                        <br/>
+                                    </t>
+                                </td>
+                                <td rowspan="6"
+                                    style="border: 1px solid black; padding: 5px; font-size: 12px; vertical-align: top;">
+                                    <span t-field="doc.partner_id.name"/>
+                                    <br/>
+                                    <span t-field="doc.partner_id.street"/>
+                                    <t t-if="doc.partner_id.street2">,
+                                        <span t-field="doc.partner_id.street2"/>
+                                    </t>
+                                    <br/>
+                                    <span t-field="doc.partner_id.city"/>,
+                                    <span t-field="doc.partner_id.state_id.name"/>
+                                    <br/>
+                                    <t t-if="doc.partner_id.phone">Tel:
+                                        <span t-field="doc.partner_id.phone"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.partner_id.email">Email:
+                                        <span t-field="doc.partner_id.email"/>
+                                        <br/>
+                                    </t>
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Invoice Date</td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.invoice_date"/>
+                                </td>
+
+
+                            </tr>
+
+                            <tr>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Buyer's Order
+                                    No.
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Buyer's Order
+                                    Date
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.invoice_date"/>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td colspan="2"
+                                    style="   text-align: center; border: 1px solid black; padding: 5px; font-weight: bold;">
+                                    Terms
+                                    of Payment:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="   text-align: center; border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.invoice_date"/>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td colspan="2"
+                                    style="border: 1px solid black; padding: 5px; font-weight: bold;     text-align: center; ">
+                                    Incoterm:
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;  ">
+                                    Buyer
+                                </td>
+
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;  ">
+                                    Notify
+                                </td>
+
+                                <td colspan="2" style="border: 1px solid black; padding: 5px; ">
+                                    <span t-field="doc.incoterm_location"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="6"
+                                    style="border: 1px solid black; padding: 5px; font-size: 12px; vertical-align: top;">
+                                    <span t-field="doc.company_id.name"/>
+                                    <br/>
+                                    <span t-field="doc.company_id.street"/>
+                                    <t t-if="doc.company_id.street2">,
+                                        <span t-field="doc.company_id.street2"/>
+                                    </t>
+                                    <br/>
+                                    <span t-field="doc.company_id.city"/>,
+                                    <span t-field="doc.company_id.state_id.name"/>
+                                    <br/>
+                                    <t t-if="doc.company_id.phone">Tel:
+                                        <span t-field="doc.company_id.phone"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.email">Email:
+                                        <span t-field="doc.company_id.email"/>
+                                        <br/>
+                                    </t>
+                                </td>
+                                <td rowspan="6"
+                                    style="border: 1px solid black; padding: 5px; font-size: 12px; vertical-align: top;">
+                                    <span t-field="doc.partner_id.name"/>
+                                    <br/>
+                                    <span t-field="doc.partner_id.street"/>
+                                    <t t-if="doc.partner_id.street2">,
+                                        <span t-field="doc.partner_id.street2"/>
+                                    </t>
+                                    <br/>
+                                    <span t-field="doc.partner_id.city"/>,
+                                    <span t-field="doc.partner_id.state_id.name"/>
+                                    <br/>
+                                    <t t-if="doc.partner_id.phone">Tel:
+                                        <span t-field="doc.partner_id.phone"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.partner_id.email">Email:
+                                        <span t-field="doc.partner_id.email"/>
+                                        <br/>
+                                    </t>
+                                </td>
+                                <td colspan="2"
+                                    style=" text-align: center; font-weight: bold;  border: 1px solid black; padding: 5px;">
+                                    Place
+                                    of Loading:
+                                </td>
+
+
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style=" text-align: center;  border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.incoterm_location"/>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td colspan="2"
+                                    style=" font-weight: bold; text-align: center;  border: 1px solid black; padding: 5px;">
+
+                                    Place of Discharge:
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style=" text-align: center;  border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.incoterm_location"/>
+                                </td>
+
+                            </tr>
+                            <tr>
+
+                                <td colspan="2"
+                                    style="font-weight: bold;  text-align: center;  border: 1px solid black; padding: 5px;">
+
+                                    Vessel Name:
+
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style=" text-align: center;  border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.incoterm_location"/>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <strong>Proforma Invoice No.:</strong>
+                                    <span t-field="doc.name"/>
+                                </td>
+
+
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <strong>Sales Order No.:</strong>
+                                    <span t-field="doc.name"/>
+                                </td>
+
+                                <td colspan="2"
+                                    style="border: 1px solid black; padding: 5px; font-weight: bold;  text-align: center;  ">
+                                    Mode of Transport:
+                                </td>
+
+                            </tr>
+                            <tr>
+
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <strong>Proforma Invoice Date:</strong>
+                                    <span t-field="doc.date"/>
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <strong>No. and Kind of Packing:</strong>
+                                    <span t-field="doc.name"/>
+                                </td>
+                                <td colspan="2"
+                                    style="border: 1px solid black; padding: 5px; font-weight: bold;  text-align: center;  ">
+                                    <span t-field="doc.name"/>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td colspan="4"
+                                    style="border: 1px solid black; padding: 5px; vertical-align: top; width:50%;">
+                                    <strong>Any Other Details:</strong>
+                                    <!--                                    <span t-field="doc.incoterm_location"/>-->
+                                </td>
+                            </tr>
+
+
+                        </table>
+                        <table style="width: 100%; border-collapse: collapse; border: 1px solid black; margin-top: 1px;">
+
+                            <thead>
+                                <tr style="background-color: #f2f2f2; text-align: center;">
+                                    <th style="border: 1px solid black; padding: 5px;">Sl No.</th>
+                                    <th style="border: 1px solid black; padding: 5px;">HS Code</th>
+                                    <th style="border: 1px solid black; padding: 5px;">Description of Goods</th>
+                                    <th style="border: 1px solid black; padding: 5px;">Quantity (Nos)</th>
+                                    <th style="border: 1px solid black; padding: 5px;">Unit Price</th>
+                                    <th style="border: 1px solid black; padding: 5px;">Total Price</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr t-foreach="enumerate(doc.invoice_line_ids, start=1)" t-as="line_data"
+                                    style="text-align: center;">
+                                    <t t-set="i" t-value="line_data[0]"/>
+                                    <t t-set="line" t-value="line_data[1]"/>
+
+
+                                    <td style="border: 1px solid black; padding: 5px;" t-esc="i"/>
+                                    <td style="border: 1px solid black; padding: 5px;"
+                                        t-esc="line.product_id.default_code or ''"/>
+                                    <td style="border: 1px solid black; padding: 5px; text-align: left;"
+                                        t-esc="line.name"/>
+                                    <td style="border: 1px solid black; padding: 5px;" t-esc="line.quantity"/>
+                                    <td style="border: 1px solid black; padding: 5px;" t-esc="line.price_unit"/>
+                                    <td style="border: 1px solid black; padding: 5px;" t-esc="line.price_subtotal"/>
+                                </tr>
+                            </tbody>
+
+
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3"
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        Total Quantity (Nos)
+                                    </td>
+                                    <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;">
+                                        <span t-esc="sum(line.quantity for line in doc.invoice_line_ids)"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3"
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        Total Amount without VAT
+
+                                    </td>
+                                    <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;"
+                                        t-esc="doc.amount_untaxed"/>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3"
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        VAT
+
+                                    </td>
+                                    <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;"
+                                        t-esc="doc.amount_tax"/>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3"
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        Currency
+                                    </td>
+                                    <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;"
+                                        t-esc="doc.currency_id.name"/>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3"
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        Total Amount
+                                    </td>
+                                    <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;"
+                                        t-esc="doc.amount_total"/>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3"
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        Total Amount In Words (<span t-esc="doc.currency_id.name"/>)
+                                    </td>
+                                    <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;"
+                                        t-esc="doc.currency_id.amount_to_text(doc.amount_total)"/>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3"
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        Country of Origin
+                                    </td>
+                                    <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;"
+                                        t-esc="doc.company_id.country_id.name"/>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <table style="width: 100%; border-collapse: collapse; border: 1px solid black; margin-top: 10px;">
+
+                            <tr>
+                                <td colspan="3" style="border: 1px solid black; padding: 5px; font-weight: bold;">
+                                    Notes (if any):
+                                </td>
+                            </tr>
+
+                            <!-- Row 2: Declaration + Bank Details (Bank Details colspan 2) -->
+                            <tr>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; width:50%;">
+                                    Declaration
+                                </td>
+                                <td colspan="2"
+                                    style="border: 1px solid black; padding: 5px; font-weight: bold; width:50%;">
+                                    Bank Details
+                                </td>
+                            </tr>
+
+                            <!-- Row 3: doc.note + bank info header -->
+                            <tr>
+                                <td style="border: 1px solid black; padding: 5px; vertical-align: top;" rowspan="6">
+                                    <span t-field="doc.ref"/>
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Account Name</td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.partner_bank_id.acc_holder_name"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Bank</td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.partner_bank_id.bank_name"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Account Numberjj
+                                </td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.partner_bank_id.acc_number"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Currency</td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.partner_bank_id.currency_id.name"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">IBAN</td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.partner_bank_id.iban"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">SWIFT Code</td>
+                                <td style="border: 1px solid black; padding: 5px;">
+                                    <span t-field="doc.partner_bank_id.cx_code"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="footer" style="width: 100%; margin-top: 10px;">
+                            <div class="row">
+                                <div class="col-4 text-start">
+                                    <table style="width: 100%; border-collapse: collapse;">
+                                        <tr>
+                                            <td style="width: 30%; vertical-align: top; text-align: left; font-size: 12px;">
+                                                For Beta Transformers FZCO,
+                                                <br/>
+                                                Authorized Signatory
+                                                <br/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-4 text-center">
+
+                                    <div class="col-4 text-center">
+                                        <span>Page
+                                            <span class="page"/>
+                                            /
+                                            <span class="topage"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-start">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

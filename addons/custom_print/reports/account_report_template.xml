@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main Invoice Report Template -->
+    <template id="report_invoice_document_custom">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="header">
+                        <!-- Header with Logo and Company Info -->
+                        <div class="row">
+                            <div class="col-6">
+                                <!-- Company Logo -->
+                                <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
+                                     style="max-height: 80px; max-width: 200px;" alt="Company Logo"/>
+                            </div>
+                           <div class="col-6 text-start" style="margin-left:210px;">
+                                <!-- Company Information -->
+                                <strong>
+                                    <span t-field="doc.company_id.name"/>
+                                </strong>
+                                <br/>
+                                <span t-field="doc.company_id.street"/>
+                                /
+                                <span t-field="doc.company_id.street2"/>
+                                <br/>
+                                <span t-field="doc.company_id.city"/>,
+                                <span t-field="doc.company_id.state_id"/>
+                                <br/>
+                                <t t-if="doc.company_id.phone">Tel:
+                                    <span t-field="doc.company_id.phone"/>
+                                    <br/>
+                                </t>
+                                <t t-if="doc.company_id.website">Website:
+                                    <span t-field="doc.company_id.website"/>
+                                    <br/>
+                                </t>
+                                <t t-if="doc.company_id.email">Email:
+                                    <span t-field="doc.company_id.email"/>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="page">
+                        <!-- Title Section -->
+                        <div class="text-center" style="margin-top: 10px;">
+                            <h4 style="margin: 0;">
+                                <span t-if="doc.move_type == 'out_invoice'">INVOICE</span>
+                                <span t-if="doc.move_type == 'out_refund'">CREDIT NOTE</span>
+                                <span t-if="doc.move_type == 'in_invoice'">VENDOR BILL</span>
+                                <span t-if="doc.move_type == 'in_refund'">VENDOR CREDIT NOTE</span>
+                            </h4>
+                        </div>
+
+                        <!-- Supplier Information Table -->
+                        <table class="table table-bordered" style="margin-top: 15px;">
+                            <tr style="background-color: #d3d3d3;">
+                                <td colspan="2">
+                                    <strong>CONSIGNEE</strong>
+                                </td>
+                                <td colspan="2">
+                                    <strong>NOTIFY PARTY</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="vertical-align: top;">
+                                    <strong>
+                                        <span t-field="doc.partner_id.name"/>
+                                    </strong>
+                                    <br/>
+                                    <t t-if="doc.partner_id.phone">
+                                        Tel:
+                                        <span t-field="doc.partner_id.phone"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.partner_shipping_id">
+                                        <span t-field="doc.partner_shipping_id.street"/>
+                                        <br/>
+                                    </t>
+                                </td>
+                                <td colspan="2" style="vertical-align: top;">
+                                    <strong>
+                                        <span t-field="doc.partner_id.name"/>
+                                    </strong>
+                                    <br/>
+                                    <span t-field="doc.partner_id.street"/>
+                                    <br/>
+                                    <t t-if="doc.partner_id.street2">
+                                        <span t-field="doc.partner_id.street2"/>
+                                        <br/>
+                                    </t>
+                                    <span t-field="doc.partner_id.city"/>
+                                    <br/>
+                                    <span>???</span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br/>
+
+                        <!-- Consignee Information Table -->
+                        <table class="table table-bordered">
+                            <tr style="background-color: #d3d3d3;">
+
+                                <td colspan="4">Information</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Invoice No:</strong>
+                                </td>
+                                <td>
+                                    <strong>Invoice Date:</strong>
+                                </td>
+                                <td>
+                                    <strong>PI No:</strong>
+                                </td>
+
+                                <td>
+                                    <strong>PI Date:</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span t-field="doc.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="doc.invoice_date" t-options='{"widget": "date"}'/>
+                                </td>
+                                <td>
+                                    <span t-field="doc.invoice_origin"/>
+                                </td>
+                                <td>
+                                    <span>???</span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br/>
+
+                        <!-- Invoice Lines Table -->
+                        <table class="table table-bordered">
+                            <thead style="background-color: #d3d3d3;font-size:14px">
+                                <tr>
+                                    <th style="width: 5%;">NO</th>
+                                    <th style="width: 15%;">HS CODE</th>
+                                    <th style="width: 40%;">MATERIAL DESCRIPTION</th>
+                                    <th style="width: 10%;" class="text-center">QUANTITY</th>
+                                    <th style="width: 15%;" class="text-end">UNIT PRICE (<span
+                                            t-field="doc.currency_id"/>)
+                                    </th>
+                                    <th style="width: 15%;" class="text-end">TOTAL AMOUNT (<span
+                                            t-field="doc.currency_id"/>)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="line_index" t-value="0"/>
+                                <t t-foreach="doc.invoice_line_ids" t-as="line">
+                                    <t t-set="line_index" t-value="line_index + 1"/>
+                                    <tr>
+                                        <td class="text-center">
+                                            <span t-esc="line_index"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.product_id.default_code"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.quantity"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-field="line.price_subtotal"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <!-- Total Row -->
+                                <tr style="background-color: #f0f0f0;">
+                                    <td colspan="5" class="text-center">
+                                        <strong>TOTAL AMOUNT (<span t-field="doc.currency_id"/>)
+                                        </strong>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong>
+                                            <span t-field="doc.amount_total"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <!-- Total in Words -->
+                                <tr style="background-color: #f0f0f0;font-size:13px">
+                                    <td colspan="2">
+                                        <strong>Total in Words (<span t-field="doc.currency_id"/>):
+                                        </strong>
+                                    </td>
+                                    <td colspan="4" class="text-center">
+                                        <strong t-out="doc.currency_id.amount_to_text(doc.amount_total).upper()"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <br/>
+
+                        <!-- Payment Terms and Bank Details -->
+                        <table class="table table-bordered">
+                            <tr>
+                                <td style="width: 50%; vertical-align: top;">
+                                    <strong>Payment Terms</strong>
+                                    <br/>
+
+                                    <span t-field="doc.invoice_payment_term_id"/>
+                                    <br/>
+
+                                    <strong>Our Bank Details:</strong>
+                                    <br/>
+
+
+                                    <strong>Account Name:</strong>
+                                    <span t-field="doc.partner_bank_id.acc_holder_name"/>
+                                    <br/>
+
+                                    <strong>Bank:</strong>
+                                    <span t-field="doc.partner_bank_id.bank_id.name"/>
+                                    <br/>
+
+                                    <strong>Account Number:</strong>
+                                    <span t-field="doc.partner_bank_id.acc_number"/>
+                                    <br/>
+                                    <strong>AED IBAN:</strong>
+                                    <br/>
+                                    <strong>SWIFT CODE:</strong>
+                                    <span t-field="doc.partner_bank_id.bank_id.bic"/>
+                                </td>
+                                <td style="width: 50%; vertical-align: top; text-align: center;">
+                                    <strong>FOR
+                                        <span t-field="doc.company_id.name"/>
+                                    </strong>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <strong>AUTHORISED SIGNATORY</strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                      <div class="footer">
+                        <div class="row">
+                            <div class="col-4"/>
+                            <div class="col-4 text-center">
+                                <span>Page
+                                    <span class="page"/>
+                                    /
+                                    <span class="topage"/>
+                                </span>
+                            </div>
+                            <div class="col-4"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

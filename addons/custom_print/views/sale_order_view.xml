@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Sale Order Form View -->
+    <record id="view_order_form_inherit_custom_print" model="ir.ui.view">
+        <field name="name">sale.order.form.custom.print</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Add Kind Attention field after Project Type (project_id) -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="kind_child_attention_id"/>
+                <!--                <field name="kind_attention_id"/>-->
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="options">{'no_open': False, 'no_create': False}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="manager_id" options="{'no_open': True, 'no_create': True}"/>
+            </xpath>
+
+            <!-- Add Note Text field after Terms and Conditions (note) -->
+            <xpath expr="//group[@name='note_group']//field[@name='note']" position="after">
+                <field name="note_text" placeholder="Enter additional notes here..." colspan="2"/>
+            </xpath>
+
+            <xpath expr="//field[@name='incoterm_location']" position="after">
+                <field name="place_of_loading"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

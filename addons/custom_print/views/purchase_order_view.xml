@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Sale Order Form View -->
+    <record id="view_po_order_form_inherit_custom_print" model="ir.ui.view">
+        <field name="name">purchase.order.form.custom.print</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="before">
+                <field name="print_layout"/>
+            </xpath>
+            <xpath expr="//field[@name='fiscal_position_id']" position="after">
+                <field name="responsible_eco_id" invisible="print_layout != 'contract_agreement'"/>
+                <field name="responsible_dr_id" invisible="print_layout != 'contract_agreement'"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="ORDER CONFIRMATION" name="custom_notes">
+                    <field name="custom_notes_html" widget="html"/>
+                </page>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']//field[@name='product_qty']" position="after">
+                <field name="qty_monthly_nos" column_invisible="parent.print_layout != 'contract_agreement'"/>
+                <field name="weight_unit_kg"/>
+                <field name="monthly_total_weight_kg" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>
+                <field name="month_total_weight_kg" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>
+                <field name="total_weight_kg" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//field[@name='date_planned']" position="after">
+                <field name="delivery_date_text"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//field[@name='price_unit']" position="after">
+                <field name="monthly_amount" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

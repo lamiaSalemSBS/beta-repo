@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Report Action -->
+    <record id="action_report_enquiry" model="ir.actions.report">
+        <field name="name">Enquiry Report</field>
+        <field name="model">crm.enquiry.custom</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">crm_enquiry_custom.report_enquiry_document</field>
+        <field name="report_file">crm_enquiry_custom.report_enquiry_document</field>
+        <field name="binding_model_id" ref="model_crm_enquiry_custom"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

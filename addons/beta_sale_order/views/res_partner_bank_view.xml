@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <!-- FORM: add a proper row with two columns -->
+  <record id="view_partner_bank_form_inherit_beta" model="ir.ui.view">
+    <field name="name">res.partner.bank.form.inherit.beta</field>
+    <field name="model">res.partner.bank</field>
+    <field name="inherit_id" ref="base.view_partner_bank_form"/>
+    <field name="arch" type="xml">
+      <!-- Insert a NEW group AFTER the first group in the sheet -->
+      <xpath expr="//form[@name='bank_account_form']//sheet//group[1]" position="after">
+        <group string="Extra Bank Information" col="2">
+          <field name="x_iban"/>
+          <field name="x_swift_code"/>
+        </group>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- TREE: add the two columns after Account Number -->
+  <record id="view_partner_bank_tree_inherit_beta" model="ir.ui.view">
+    <field name="name">res.partner.bank.tree.inherit.beta</field>
+    <field name="model">res.partner.bank</field>
+    <field name="inherit_id" ref="base.view_partner_bank_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='acc_number']" position="after">
+        <field name="x_iban" optional="show"/>
+        <field name="x_swift_code" optional="show"/>
+      </xpath>
+    </field>
+  </record>
+
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- Add "Kind of Attention" right after the Customer field on Sale Order -->
+  <record id="view_order_form_inherit_beta_attention" model="ir.ui.view">
+    <field name="name">sale.order.form.beta.attention</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='partner_id']" position="after">
+        <field name="x_attention_id"
+               string="Kind of Attention"
+               widget="res_partner_many2one"
+               placeholder="Choose a contact…"
+               context="{
+                 'res_partner_search_mode': 'customer',
+                 'show_address': 0,
+                 'show_vat': 0,
+                 'default_parent_id': partner_id,
+                 'default_company_id': company_id
+               }"
+        />
+      </xpath>
+    </field>
+  </record>
+</odoo>

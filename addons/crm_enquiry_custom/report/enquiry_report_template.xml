@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Report Template -->
+    <template id="report_enquiry_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+
+                    <div class="header">
+                        <!-- Header with Logo and Company Info -->
+                        <div class="row">
+                            <div class="col-6">
+                                <!-- Company Logo -->
+                                <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                     style="max-height: 100px; max-width: 220px;" alt="Company Logo"/>
+                            </div>
+                             <div class="col-6 text-start" style="margin-left:210px;">
+                                <!-- Company Information -->
+                                <strong>
+                                    <span t-field="o.company_id.name"/>
+                                </strong>
+                                <br/>
+                                <span t-field="o.company_id.street"/>
+                                /
+                                <span t-field="o.company_id.street2"/>
+                                <br/>
+                                <span t-field="o.company_id.city"/>,
+                                <span t-field="o.company_id.state_id"/>
+                                <br/>
+                                <t t-if="o.company_id.phone">Tel:
+                                    <span t-field="o.company_id.phone"/>
+                                    <br/>
+                                </t>
+                                <t t-if="o.company_id.website">Website:
+                                    <span t-field="o.company_id.website"/>
+                                    <br/>
+                                </t>
+                                <t t-if="o.company_id.email">Email:
+                                    <span t-field="o.company_id.email"/>
+                                    <br/>
+                                </t>
+                                <t t-if="o.company_id.vat">Vat Registration No.:
+                                    <span t-field="o.company_id.vat"/>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="page">
+                        <div class="oe_structure"/>
+
+                        <!-- Title Section -->
+                        <div class="text-center"
+                             style="background-color: #17a2b8; color: white; padding: 8px; margin-top: 10px;">
+                            <h3 style="margin: 0;">ENQUIRY</h3>
+                        </div>
+                        <div class="text-center" style="background-color: #17a2b8; color: white; padding: 5px;">
+                            <h4 style="margin: 0;">
+                                <span t-field="o.project_type_id.name"/>
+                            </h4>
+                        </div>
+
+                        <!-- Customer Details Section -->
+                        <div style="margin-top: 15px;">
+                            <strong>Customer Details:</strong>
+                        </div>
+                        <div style="margin-top: 5px; margin-left: 10px;">
+                            <span t-field="o.partner_id"
+                                  t-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": True}'/>
+                        </div>
+
+                        <!-- Enquiry Info Table -->
+                        <table class="table table-bordered" style="margin-top: 15px; border: 1px solid #000;">
+                            <tr>
+                                <td style="width: 25%; border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                    <strong>Customer Reference</strong>
+                                </td>
+                                <td style="width: 25%; border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                    <span t-field="o.customer_reference"/>
+                                </td>
+                                <td style="width: 25%; border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                    <strong>Enquiry Reference No.</strong>
+                                </td>
+                                <td style="width: 25%; border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                    <span t-field="o.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2"
+                                    style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt; vertical-align: middle">
+                                    <strong>Project Reference</strong>
+                                </td>
+                                <td rowspan="2"
+                                    style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt; vertical-align: middle">
+                                    <span t-field="o.project_reference"/>
+                                </td>
+                                <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                    <strong>Revision No.</strong>
+                                </td>
+                                <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                    <span t-field="o.revision"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                    <strong>Date</strong>
+                                </td>
+                                <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                    <span t-field="o.date" t-options='{"widget": "date"}'/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Enquiry Lines -->
+                        <table class="table table-bordered" style="margin-top: 15px; border: 1px solid #000;"
+                               t-if="o.line_ids">
+                            <thead style="background-color: #f0f0f0;">
+                                <tr>
+                                    <th style="width: 5%; border: 1px solid #000; padding: 6px; line-height: 1.2; font-size: 10pt; font-weight: bold; background-color: #f0f0f0;">
+                                        No.
+                                    </th>
+                                    <th style="width: 55%; border: 1px solid #000; padding: 6px; line-height: 1.2; font-size: 10pt; font-weight: bold; background-color: #f0f0f0;">
+                                        Description
+                                    </th>
+                                    <th style="width: 15%; border: 1px solid #000; padding: 6px; line-height: 1.2; font-size: 10pt; font-weight: bold; background-color: #f0f0f0; text-align: center;">
+                                        Quantity (Nos)
+                                    </th>
+                                    <th style="width: 25%; border: 1px solid #000; padding: 6px; line-height: 1.2; font-size: 10pt; font-weight: bold; background-color: #f0f0f0;">
+                                        Special Notes (if any)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="line_index" t-value="0"/>
+                                <t t-foreach="o.line_ids" t-as="line">
+                                    <t t-set="line_index" t-value="line_index + 1"/>
+                                    <tr>
+                                        <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt; text-align: center;">
+                                            <span t-esc="line_index"/>
+                                        </td>
+                                        <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                            <span t-field="line.name"/>
+                                            <t t-if="line.product_id">
+                                                <br/>
+                                                <small style="color: #666;">
+                                                    <strong>Product:</strong>
+                                                    <span t-field="line.product_id"/>
+                                                </small>
+                                            </t>
+                                        </td>
+                                        <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt; text-align: center;">
+                                            <span t-field="line.qty"/>
+                                        </td>
+                                        <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                            <span t-field="line.note"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <!-- Total Row -->
+                                <tr style="background-color: #f0f0f0;">
+                                    <td colspan="2"
+                                        style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt; text-align: center; background-color: #f0f0f0;">
+                                        <strong>Total Quantity (Nos)</strong>
+                                    </td>
+                                    <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt; text-align: center; background-color: #f0f0f0;">
+                                        <strong>
+                                            <t t-set="total_qty" t-value="0"/>
+                                            <t t-foreach="o.line_ids" t-as="line">
+                                                <t t-set="total_qty" t-value="total_qty + line.qty"/>
+                                            </t>
+                                            <span t-esc="total_qty"/>
+                                        </strong>
+                                    </td>
+                                    <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt; background-color: #f0f0f0;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Technical Parameters Section -->
+
+                        <t t-if="o.line_ids">
+                            <!-- Collect all unique parameters -->
+                            <t t-set="all_param_ids" t-value="set()"/>
+                            <t t-foreach="o.line_ids" t-as="line">
+                                <t t-foreach="line.detail_ids" t-as="detail">
+                                    <t t-set="dummy" t-value="all_param_ids.add(detail.parameter_id.id)"/>
+                                </t>
+                            </t>
+
+                            <!-- Get parameter records -->
+                            <!--                            <t t-set="param_list" t-value="request.env['technical.parameter'].browse(list(all_param_ids)).sorted(key=lambda p: p.name)"/>-->
+                            <!-- Build parameter -> lowest sequence map -->
+                            <t t-set="param_seq_map" t-value="{}"/>
+
+                            <t t-foreach="o.line_ids" t-as="line">
+                                <t t-foreach="line.detail_ids" t-as="detail">
+                                    <t t-if="detail.parameter_id.id not in param_seq_map">
+                                        <t t-set="dummy"
+                                           t-value="param_seq_map.update({detail.parameter_id.id: detail.sequence})"/>
+                                    </t>
+                                    <t t-elif="detail.sequence &lt; param_seq_map[detail.parameter_id.id]">
+                                        <t t-set="dummy"
+                                           t-value="param_seq_map.update({detail.parameter_id.id: detail.sequence})"/>
+                                    </t>
+                                </t>
+                            </t>
+
+                            <!-- Get parameter records ORDERED BY SEQUENCE -->
+                            <t t-set="param_list"
+                               t-value="request.env['technical.parameter'].browse(list(all_param_ids)).sorted(key=lambda p: param_seq_map.get(p.id, 9999))"/>
+                            <!-- Split lines into groups of 4 -->
+                            <t t-set="lines_list" t-value="list(o.line_ids)"/>
+                            <t t-set="num_lines" t-value="len(lines_list)"/>
+                            <t t-set="num_groups" t-value="(num_lines + 3) // 4"/>
+
+                            <t t-foreach="range(num_groups)" t-as="group_idx">
+                                <t t-set="start_idx" t-value="group_idx * 4"/>
+                                <t t-set="end_idx" t-value="min(start_idx + 4, num_lines)"/>
+                                <t t-set="group_lines" t-value="lines_list[start_idx:end_idx]"/>
+
+                                <h3 style="margin-top: 15px; text-align: center;">Technical Parameters</h3>
+                                <table class="table table-bordered" style="margin-top: 10px; border: 1px solid #000;">
+                                    <thead style="background-color: #f0f0f0;">
+                                        <tr>
+                                            <th style="width: 25%; border: 1px solid #000; padding: 6px; line-height: 1.2; font-size: 10pt; font-weight: bold; background-color: #f0f0f0;">
+                                                Description
+                                            </th>
+                                            <th style="width: 10%; border: 1px solid #000; padding: 6px; line-height: 1.2; font-size: 10pt; font-weight: bold; background-color: #f0f0f0;">
+                                                Unit
+                                            </th>
+                                            <t t-foreach="group_lines" t-as="gline">
+                                                <th style="border: 1px solid #000; padding: 6px; line-height: 1.2; font-size: 10pt; font-weight: bold; background-color: #f0f0f0; text-align: center;">
+                                                    Item
+                                                    <t t-esc="start_idx + gline_index + 1"/>
+                                                </th>
+                                            </t>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="param_list" t-as="param">
+                                            <tr>
+                                                <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                                    <span t-field="param.name"/>
+                                                </td>
+                                                <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt; text-align: center;">
+                                                    <span t-field="param.unit"/>
+                                                </td>
+                                                <t t-foreach="group_lines" t-as="gline">
+                                                    <td style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt; text-align: center;">
+                                                        <!-- Find detail for this parameter in this line -->
+                                                        <t t-set="found" t-value="False"/>
+                                                        <t t-foreach="gline.detail_ids" t-as="detail">
+                                                            <t t-if="detail.parameter_id.id == param.id and not found">
+                                                                <span t-field="detail.item_id"/>
+                                                                <t t-set="found" t-value="True"/>
+                                                            </t>
+                                                        </t>
+                                                        <span t-if="not found">-</span>
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </t>
+
+                        <!-- Notes Section -->
+                        <table class="table table-bordered" style="margin-top: 15px; border: 1px solid #000;"
+                               t-if="o.notes">
+                            <tr>
+                                <td colspan="4"
+                                    style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                    <strong>NOTES:</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"
+                                    style="border: 1px solid #000; padding: 4px 6px; line-height: 1.2; font-size: 10pt;">
+                                    <div t-field="o.notes"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="oe_structure"/>
+                    </div>
+                      <div class="footer">
+                        <div class="row">
+                            <div class="col-4"/>
+                            <div class="col-4 text-center">
+                                <span>Page
+                                    <span class="page"/>
+                                    /
+                                    <span class="topage"/>
+                                </span>
+                            </div>
+                            <div class="col-4"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

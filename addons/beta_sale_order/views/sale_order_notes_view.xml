@@ -1,0 +1,15 @@
+<odoo>
+  <data>
+    <record id="view_order_form_inherit_offer_notes" model="ir.ui.view">
+      <field name="name">sale.order.form.offer.notes.beta</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+        <!-- add the notes field just after the 'note' (Terms & Conditions) textarea -->
+        <xpath expr="//field[@name='note']" position="after">
+          <field name="x_offer_notes" placeholder="Write one note per line…"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

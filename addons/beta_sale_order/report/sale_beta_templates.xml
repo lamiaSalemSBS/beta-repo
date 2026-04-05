@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="report_beta_saleorder">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+        <t t-call="web.external_layout">
+
+          <!-- ===== styles ===== -->
+          <style>
+            .beta-page-frame{
+              border: 1px solid #2a2a2a;
+              box-sizing: border-box;
+              padding: 4mm;
+              padding-bottom: 18mm;      /* reserved space for bottom pager */
+              min-height: 255mm;          /* nudge content toward the bottom */
+              position: relative;         /* lets the pager stick to the bottom */
+            }
+            .beta-pager{
+              position: absolute;
+              left: 0; right: 0; bottom: 2mm;
+              text-align: center;
+              font-size: 9pt;
+            }
+            .beta-header{
+              display:flex; align-items:flex-start; justify-content:space-between;
+              gap:12mm; margin-bottom:4mm;
+            }
+            .beta-header .logo img{ max-height:28mm; height:auto; }
+            .beta-header .contact{ text-align:left; font-size:10pt; line-height:1.25; }
+            .beta-title-bar{
+              margin: 2mm 0 4mm 0;
+              background:#0b8e89; color:#fff; text-align:center;
+              padding: 3mm 2mm; font-weight:600; letter-spacing:.2px;
+              border:1px solid #0a6c68;
+            }
+            .beta-section{ border:1px solid #cfcfcf; margin:0 0 6mm 0; }
+            .beta-section-title{ font-weight:600; font-size:11pt; padding:2.5mm 3mm; border-bottom:1px solid #cfcfcf; }
+            .beta-section-body{ padding:3mm; }
+            table.beta-info-grid{ width:100%; border-collapse:collapse; table-layout:fixed; margin-top:3mm; }
+            .beta-info-grid th, .beta-info-grid td{ border:1px solid #e0e0e0; padding:2.5mm 3mm; font-size:10pt; }
+            .beta-info-grid th.lbl{ width:20%; font-weight:600; }
+              .beta-info-grid td.colon {
+                text-align: center;
+                vertical-align: middle;
+                width: 10px; /* optional, to keep a neat fixed width */
+                padding: 0; /* optional, removes extra top/bottom space */
+              }
+            .beta-info-grid td.val{ width:28%; }
+
+            table.beta-lines{
+              width:100%; border:1px solid #b5b5b5; border-collapse:collapse; table-layout:fixed; margin-top:3mm;
+            }
+            .beta-lines th, .beta-lines td{
+              border:1px solid #b5b5b5; padding:2.5mm 3mm; font-size:10pt; vertical-align:top; white-space:normal;
+            }
+            .beta-lines th.sl,   .beta-lines td.sl{    width: 6%;  text-align:center; }
+            .beta-lines th.descr,.beta-lines td.descr{ width:56%; }
+            .beta-lines th.qty,  .beta-lines td.qty{  width:12%;  text-align:right; }
+            .beta-lines th.unit, .beta-lines td.unit{ width:13%;  text-align:right; }
+            .beta-lines th.total,.beta-lines td.total{width:13%;  text-align:right; }
+            .beta-lines tfoot{ page-break-inside: avoid; }
+
+            .beta-terms{ border:1px solid #cfcfcf; margin-top:6mm; padding:3mm; }
+            .beta-terms h4{ margin:0 0 3mm 0; font-size:11pt; }
+
+            /* force a hard page break before the next block */
+            .force-break{
+              page-break-before: always;   /* wkhtmltopdf */
+              break-before: page;          /* modern browsers */
+            }
+
+            /* (kept) CSS-counter fallback for body pagers (not used now) */
+            @media print {
+              .beta-pager .page:before  { content: counter(page); }
+              .beta-pager .topage:before{ content: counter(pages); }
+            }
+
+            /* real footer styled to look like the old in-frame pager */
+            .beta-real-footer{ text-align:center; font-size:9pt; }
+            .beta-footer-inner{
+              border-top:1px solid #cfcfcf;
+              padding-top:2mm;
+              margin: 0 4mm;   /* avoids calc() in footer HTML */
+            }
+              .pre-line{ white-space: pre-line; }   <!-- keeps user line breaks -->
+  .beta-plain-terms{ white-space: pre-line; font-size:10pt; line-height:1.4; margin:0; }
+              /* ===== Bank details table ===== */
+table.beta-bank {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-top: 6mm;
+}
+.beta-bank th, .beta-bank td {
+  border: 1px solid #c5c5c5;
+  padding: 2.5mm 3mm;
+  font-size: 10pt;
+}
+.beta-bank thead th.header {
+  background: #efefef;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: left;
+}
+.beta-bank th.lbl { width: 28%; font-weight: 600; }
+.beta-bank td.colon { width: 2%; text-align: center; }
+.beta-bank td.val { width: 70%; }
+
+              /* Use on short pages (e.g., Terms page) to shrink the white bottom area */
+.beta-page-frame.compact{
+  min-height: 0;          /* let content define the height */
+  padding-bottom: 12mm;   /* still leave room for the footer */
+}
+
+/* Slightly tighter blocks on the compact page (optional) */
+.beta-section--tight { margin: 4mm 0 0 0; }
+table.beta-bank     { margin-top: 4mm; }  /* was 6mm */
+
+              /* Make the frame on short pages extend down toward the footer */
+.beta-page-frame.fill-bottom{
+  min-height: 268mm;   /* tweak 266–270mm if needed for your footer */
+  padding-bottom: 10mm;/* still leave a little room for the footer */
+}
+@media print{
+  .beta-page-frame.fill-bottom{ min-height: 320mm; }
+}
+
+/* NOTES table */
+table.beta-notes{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+}
+.beta-notes th, .beta-notes td{ border:1px solid #c5c5c5; padding:2mm 3mm; font-size:10pt; }
+
+.beta-notes th.num, .beta-notes td.num{ width:8%; text-align:center; }
+.beta-notes th.colon, .beta-notes td.colon{
+  width:4mm;
+  max-width:4mm;
+  padding-left:0; padding-right:0;
+  text-align:center;
+}
+.beta-notes th.val, .beta-notes td.val{ width:auto; }
+
+
+/* Signature block at bottom-left of a page */
+.beta-signature{
+  position: absolute;          /* anchor inside the frame */
+  left: 4mm;                   /* margin from left edge */
+  bottom: 8mm;                 /* keep clear of footer */
+  width: 70mm;                 /* adjust as you like */
+  text-align: left;
+}
+.beta-signature img{           /* optional image signature */
+  max-height: 18mm;
+  display: block;
+}
+.beta-signature .caption{
+  border-top: 1px solid #9aa;
+  margin-top: 2mm;
+  padding-top: 1mm;
+  font-size: 10pt;
+}
+
+/* When a page has a signature, reserve extra space at bottom
+   so it never overlaps the footer */
+.beta-frame--with-signature{
+  padding-bottom: 34mm;        /* was ~18mm; bump to fit sig */
+}
+
+              .beta-terms-box { margin-top: 8px; }
+  .beta-terms-title {
+    font-weight: 600;
+    font-size: 12px;
+    margin: 0 0 4px 0;
+    padding: 2px 6px;
+    border: 1px solid #444;
+    border-bottom: 0;
+    background: #f3f3f3;
+  }
+  .beta-terms-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+  .beta-terms-table th,
+  .beta-terms-table td {
+    border: 1px solid #444;
+    padding: 4px 6px;
+    vertical-align: top;
+  }
+  .beta-terms-table th {
+    text-align: left;
+    font-weight: 600;
+  }
+  .beta-terms-table td.num {
+    width: 18px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .beta-terms-table td.colon {
+    width: 10px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0; /* keeps the ":" centered nicely */
+  }
+  .beta-terms-desc {
+    white-space: pre-line; /* keep line breaks in descriptions */
+  }
+
+          </style>
+
+          <!-- ===== REAL FOOTER (placed BEFORE pages so wkhtml picks this one) ===== -->
+          <div class="footer beta-real-footer">
+            <div class="beta-footer-inner">
+              Page <span class="page"/> of <span class="topage"/>
+            </div>
+          </div>
+
+          <!-- ===== Page 1 ===== -->
+          <div class="page">
+            <div class="beta-page-frame"><!-- FRAME START -->
+
+              <!-- Header -->
+              <div class="beta-header">
+                <div class="logo">
+                  <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"/>
+                  <h3 t-if="not o.company_id.logo" t-esc="o.company_id.name"/>
+                </div>
+                <div class="contact">
+                  <div><strong t-esc="o.company_id.name"/></div>
+                  <div t-if="o.company_id.street"  t-esc="o.company_id.street"/>
+                  <div t-if="o.company_id.street2" t-esc="o.company_id.street2"/>
+                  <div>
+                    <t t-esc="o.company_id.city"/>
+                    <t t-if="o.company_id.state_id">, <t t-esc="o.company_id.state_id.name"/></t>
+                    <t t-esc="o.company_id.zip"/>
+                  </div>
+                  <div t-if="o.company_id.country_id" t-esc="o.company_id.country_id.name"/>
+                  <div t-if="o.company_id.phone">Tel: <span t-esc="o.company_id.phone"/></div>
+                  <div t-if="o.company_id.website">Website: <span t-esc="o.company_id.website"/></div>
+                  <div t-if="o.company_id.email">Email: <span t-esc="o.company_id.email"/></div>
+                </div>
+              </div>
+
+              <!-- Title -->
+                <div class="beta-title-bar">
+                    <span>OFFER</span><br/>
+                    <span>SUPPLY OF OIL IMMERSED TRANSFORMER</span>
+                </div>
+              <!-- Customer details -->
+              <div class="beta-section">
+                <div class="beta-section-title">Customer Details:</div>
+                <div class="beta-section-body">
+                  <p class="mb-0"><strong t-esc="o.partner_id.display_name"/></p>
+                  <p class="mb-0" t-if="o.partner_id.contact_address"><span t-esc="o.partner_id.contact_address"/></p>
+                  <p class="mb-0" t-if="o.partner_id.phone">Contact No.: <span t-esc="o.partner_id.phone"/></p>
+                  <p class="mb-0" t-if="o.partner_id.email">Email: <span t-esc="o.partner_id.email"/></p>
+                  <p class="mb-0" t-if="o.x_attention_id">Kind Attention: <span t-esc="o.x_attention_id.display_name"/></p>
+
+                  <table class="beta-info-grid">
+                    <tbody>
+                      <tr>
+                        <th class="lbl">Enquiry Reference</th><td class="colon">:</td>
+                        <td class="val" t-esc="o.x_enquiry_reference or o.origin or ''"/>
+                        <th class="lbl">Offer Reference No.</th><td class="colon">:</td>
+                        <td class="val" t-esc="o.name"/>
+                      </tr>
+                      <tr>
+                        <th class="lbl">Project Reference</th><td class="colon">:</td>
+                        <td class="val" t-esc="o.x_project_id and o.x_project_id.display_name or ''"/>
+                        <th class="lbl">Revision No.</th><td class="colon">:</td>
+                        <td class="val">00</td>
+                      </tr>
+                      <tr>
+                        <th class="lbl">Date</th><td class="colon">:</td>
+                        <td class="val" t-esc="o.date_order or o.create_date" t-options='{"widget":"date"}'/>
+                        <th class="lbl">Email dtd</th><td class="colon">:</td>
+                        <td class="val" t-esc="o.create_date" t-options='{"widget":"date"}'/>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Lines table -->
+              <table class="beta-lines">
+                <thead>
+                  <tr>
+                    <th class="sl">Sl No.</th>
+                    <th class="descr">Description</th>
+                    <th class="qty">Quantity (Nos)</th>
+                    <th class="unit">Unit Price</th>
+                    <th class="total">Total Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr t-foreach="o.order_line" t-as="l" t-key="l.id">
+                    <td class="sl"><span t-esc="l_index + 1"/></td>
+                    <td class="descr"><span t-esc="l.name or l.display_name"/></td>
+                    <td class="qty"><span t-esc="l.product_uom_qty"/></td>
+                    <td class="unit">
+                      <span t-esc="l.price_unit" t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                    </td>
+                    <td class="total">
+                      <span t-esc="l.price_subtotal" t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                    </td>
+                  </tr>
+
+                  <!-- Filler rows to push totals down -->
+                  <t t-set="line_count" t-value="len(o.order_line)"/>
+                  <t t-set="min_rows" t-value="12"/>
+                  <t t-set="filler_count" t-value="min_rows - line_count if (min_rows - line_count) > 0 else 0"/>
+                  <tr t-foreach="range(filler_count)" t-as="r">
+                    <td class="sl">&#160;</td>
+                    <td class="descr">&#160;</td>
+                    <td class="qty">&#160;</td>
+                    <td class="unit">&#160;</td>
+                    <td class="total">&#160;</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th colspan="4" class="text-end">Total Quantity (Nos)</th>
+                    <th class="text-end">
+                      <t t-set="qty_total" t-value="sum(o.order_line.mapped('product_uom_qty'))"/>
+                      <span t-esc="qty_total"/>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th colspan="4" class="text-end">Total Amount Excluding Taxes, Duties &amp; VAT (as applicable)</th>
+                    <th class="text-end">
+                      <span t-esc="o.amount_untaxed" t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th colspan="4" class="text-end">Currency</th>
+                    <th class="text-end"><span t-esc="o.currency_id.name"/></th>
+                  </tr>
+                </tfoot>
+              </table>
+
+            </div><!-- FRAME END -->
+          </div>
+<!-- ===== Page 2: Terms & Conditions ===== -->
+<div class="page force-break">
+  <div class="beta-page-frame fill-bottom">
+
+    <!-- Header -->
+    <div class="beta-header">
+      <div class="logo">
+        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"/>
+        <h3 t-if="not o.company_id.logo" t-esc="o.company_id.name"/>
+      </div>
+      <div class="contact">
+        <div><strong t-esc="o.company_id.name"/></div>
+        <div t-if="o.company_id.street"  t-esc="o.company_id.street"/>
+        <div t-if="o.company_id.street2" t-esc="o.company_id.street2"/>
+        <div>
+          <t t-esc="o.company_id.city"/>
+          <t t-if="o.company_id.state_id">, <t t-esc="o.company_id.state_id.name"/></t>
+          <t t-esc="o.company_id.zip"/>
+        </div>
+        <div t-if="o.company_id.country_id" t-esc="o.company_id.country_id.name"/>
+        <div t-if="o.company_id.phone">Tel: <span t-esc="o.company_id.phone"/></div>
+        <div t-if="o.company_id.website">Website: <span t-esc="o.company_id.website"/></div>
+        <div t-if="o.company_id.email">Email: <span t-esc="o.company_id.email"/></div>
+      </div>
+    </div>
+
+    <!-- Title -->
+    <div class="beta-title-bar">
+      <span>OFFER - SUPPLY OF OIL IMMERSED TRANSFORMER</span>
+    </div>
+
+    <!-- Top info grid -->
+    <table class="beta-info-grid">
+      <tbody>
+        <tr>
+          <th class="lbl">Enquiry Reference</th><td class="colon">:</td>
+          <td class="val" t-esc="o.x_enquiry_reference or o.origin or ''"/>
+          <th class="lbl">Offer Reference No.</th><td class="colon">:</td>
+          <td class="val" t-esc="o.name"/>
+        </tr>
+        <tr>
+          <th class="lbl">Project Reference</th><td class="colon">:</td>
+          <td class="val" t-esc="o.x_project_id and o.x_project_id.display_name or ''"/>
+          <th class="lbl">Revision No.</th><td class="colon">:</td>
+          <td class="val">00</td>
+        </tr>
+        <tr>
+          <th class="lbl">Date</th><td class="colon">:</td>
+          <td class="val" t-esc="o.date_order or o.create_date" t-options='{"widget":"date"}'/>
+          <th class="lbl">Email dtd</th><td class="colon">:</td>
+          <td class="val" t-esc="o.create_date" t-options='{"widget":"date"}'/>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ===== BANK DETAILS (inside frame) ===== -->
+    <t t-set="bank_rec" t-value="o.partner_id.bank_ids and o.partner_id.bank_ids[0] or False"/>
+    <div class="beta-section beta-section--tight">
+      <table class="beta-bank">
+        <thead>
+          <tr><th class="header" colspan="3">BANK DETAILS:</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="lbl">Account Name</th>
+            <td class="colon">:</td>
+            <td class="val" t-esc="o.partner_id.display_name"/>
+          </tr>
+          <tr>
+            <th class="lbl">Bank</th>
+            <td class="colon">:</td>
+            <td class="val" t-esc="bank_rec and bank_rec.bank_id and bank_rec.bank_id.name or ''"/>
+          </tr>
+          <tr>
+            <th class="lbl">Account Number</th>
+            <td class="colon">:</td>
+            <td class="val" t-esc="bank_rec and bank_rec.acc_number or ''"/>
+          </tr>
+          <tr>
+            <th class="lbl">AED IBAN</th>
+            <td class="colon">:</td>
+            <td class="val" t-esc="bank_rec and bank_rec.x_iban or ''"/>
+          </tr>
+          <tr>
+            <th class="lbl">SWIFT Code</th>
+            <td class="colon">:</td>
+            <td class="val" t-esc="bank_rec and (bank_rec.x_swift_code or (bank_rec.bank_id and bank_rec.bank_id.bic) or '')"/>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Terms & Conditions (still inside frame) -->
+<!-- Terms & Conditions (inside frame) -->
+<div class="beta-terms-box">
+  <h4 class="beta-terms-title">TERMS &amp; CONDITIONS</h4>
+
+  <!-- If custom terms exist, show the table; else fall back to o.note, else dash -->
+  <t t-if="o.x_term_ids">
+    <table class="beta-terms-table">
+      <thead>
+        <tr>
+          <th style="width:18px;">#</th>
+          <th>Title</th>
+          <th style="width:10px;"></th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- index i starts at 0, so show i+1 -->
+<t t-foreach="o.x_term_ids" t-as="term">
+  <tr>
+    <td class="num"><span t-esc="term_index + 1"/></td>
+    <td><span t-esc="term.name or ''"/></td>
+    <td class="colon">:</td>
+    <td class="beta-terms-desc"><span t-esc="term.term_description or ''"/></td>
+  </tr>
+</t>
+
+      </tbody>
+    </table>
+  </t>
+
+  <t t-if="not o.x_term_ids">
+    <div t-if="o.note" class="beta-plain-terms" t-field="o.note" t-options="{'widget': 'text'}"/>
+    <p t-if="not o.note" class="beta-plain-terms">—</p>
+  </t>
+</div>
+
+
+      <!-- NOTES (from x_offer_notes, one line = one note) -->
+<t t-set="notes_text"  t-value="o.x_offer_notes or ''"/>
+<t t-set="notes_list" t-value="list(filter(None, [ln.strip() for ln in notes_text.splitlines()]))"/>
+
+<t t-if="notes_list">
+  <table class="beta-notes">
+    <thead>
+      <tr>
+        <th class="header" colspan="3">NOTES:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr t-foreach="notes_list" t-as="note" t-key="note">
+        <td class="num"   t-esc="note_index + 1"/>
+        <td class="colon">:</td>
+        <td class="text"  t-esc="note"/>
+      </tr>
+    </tbody>
+  </table>
+</t>
+
+
+  </div>
+</div>
+
+
+
+        </t>
+      </t>
+    </t>
+  </template>
+</odoo>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_crm_enquiry_detail_template_form" model="ir.ui.view">
+        <field name="name">crm.enquiry.detail.template.form</field>
+        <field name="model">crm.enquiry.detail.template</field>
+        <field name="arch" type="xml">
+            <form string="Details Template">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="company_id" options="{'no_create': True}"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Template Lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="parameter_id" options="{'no_create': True}"/>
+                                    <field name="unit" optional="show"/>
+                                    <field name="item_id" context="{'default_parameter_id': parameter_id}"
+                                           options="{'no_open': True, 'no_create_edit': True}"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_crm_enquiry_detail_template_list" model="ir.ui.view">
+        <field name="name">crm.enquiry.detail.template.list</field>
+        <field name="model">crm.enquiry.detail.template</field>
+        <field name="arch" type="xml">
+            <list string="Details Templates">
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_crm_enquiry_detail_template_search" model="ir.ui.view">
+        <field name="name">crm.enquiry.detail.template.search</field>
+        <field name="model">crm.enquiry.detail.template</field>
+        <field name="arch" type="xml">
+            <search string="Search Details Templates">
+                <field name="name"/>
+                <field name="company_id"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_crm_enquiry_detail_template" model="ir.actions.act_window">
+        <field name="name">Details Templates</field>
+        <field name="res_model">crm.enquiry.detail.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_crm_enquiry_detail_template"
+              name="Details Enquiry Templates"
+              parent="crm.crm_menu_config"
+              action="action_crm_enquiry_detail_template"
+              sequence="120"/>
+</odoo>

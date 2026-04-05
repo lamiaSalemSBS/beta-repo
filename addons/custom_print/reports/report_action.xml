@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Custom Sale Order Report Action -->
+    <record id="action_report_sale_order_custom" model="ir.actions.report">
+        <field name="name">Custom Sale Order</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_print.report_sale_order_document_custom</field>
+        <field name="report_file">custom_print.report_sale_order_document_custom</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="custom_print.paperformat_custom"/>
+    </record>
+
+    <!-- Custom Invoice Report Action -->
+    <record id="action_report_invoice_custom" model="ir.actions.report">
+        <field name="name">Custom Invoice</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_print.report_invoice_document_custom</field>
+        <field name="report_file">custom_print.report_invoice_document_custom</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="custom_print.paperformat_custom"/>
+    </record>
+
+    <!-- Custom Purchase Order Report Action -->
+    <record id="action_report_purchase_order_custom" model="ir.actions.report">
+        <field name="name">Custom Purchase Order</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_print.report_purchase_order_document_custom</field>
+        <field name="report_file">custom_print.report_purchase_order_document_custom</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="custom_print.paperformat_custom"/>
+    </record>
+
+
+    <!-- Contract Agreement Report Action (Copy of Purchase Report) -->
+    <record id="action_report_purchase_order_contract_custom" model="ir.actions.report">
+        <field name="name">Contract \ reference</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_print.report_purchase_order_contract_document_custom</field>
+        <field name="report_file">custom_print.report_purchase_order_contract_document_custom</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="custom_print.paperformat_custom"/>
+    </record>
+
+    <!-- Beta Offer Report Action -->
+    <record id="action_report_sale_offer_custom" model="ir.actions.report">
+        <field name="name">Beta Offer</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_print.report_sale_offer_document_custom</field>
+        <field name="report_file">custom_print.report_sale_offer_document_custom</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="custom_print.paperformat_custom"/>
+    </record>
+
+    <record id="action_report_PROFORMA_INVOICE_sale_custom" model="ir.actions.report">
+        <field name="name">Beta Proforma Invoice</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_print.report_pro_forma_document_custom</field>
+        <field name="report_file">custom_print.report_pro_forma_document_custom</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="custom_print.paperformat_custom_footer"/>
+    </record>
+
+
+    <record id="action_report_Commercial_Invoice_custom" model="ir.actions.report">
+        <field name="name">Beta Commercial Invoice</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_print.report_commercial_invoice_custom</field>
+        <field name="report_file">custom_print.report_commercial_invoice_custom</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="custom_print.paperformat_custom"/>
+    </record>
+    <record id="action_report_Packing_List_custom" model="ir.actions.report">
+        <field name="name">Beta Packing List</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_print.report_packing_list_custom</field>
+        <field name="report_file">custom_print.report_packing_list_custom</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="custom_print.paperformat_custom"/>
+    </record>
+
+</odoo>

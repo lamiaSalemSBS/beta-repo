@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Beta Offer Report Template -->
+    <template id="report_sale_offer_document_custom">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+
+                    <div class="page">
+                        <div class="header">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
+                                         style="max-height: 80px; max-width: 200px;" alt="Company Logo"/>
+                                </div>
+                                <div class="col-6 text-start" style="margin-left:210px;">
+                                    <strong>
+                                        <span t-field="doc.company_id.name"/>
+                                    </strong>
+                                    <br/>
+                                    <span t-field="doc.company_id.street"/>
+                                    /
+                                    <span t-field="doc.company_id.street2"/>
+                                    <br/>
+                                    <span t-field="doc.company_id.city"/>,
+                                    <span t-field="doc.company_id.state_id"/>
+                                    <br/>
+                                    <t t-if="doc.company_id.phone">Tel:
+                                        <span t-field="doc.company_id.phone"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.website">Website:
+                                        <span t-field="doc.company_id.website"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.email">Email:
+                                        <span t-field="doc.company_id.email"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.vat">Vat Registration No.:
+                                        <span t-field="doc.company_id.vat"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Title Section -->
+                        <div class="text-center" style="background-color: #17a2b8; color: white; padding: 8px; ">
+                            <h4 style="margin: 0;">OFFER</h4>
+                            <h5 style="margin: 0;">
+                                <span t-field="doc.project_type_id.name"/>
+                            </h5>
+                        </div>
+
+                        <!-- Customer Details Section -->
+                        <div style="margin-top: 15px;">
+                            <strong>Customer Details:</strong>
+                            <br/>
+                            <strong>M/s :
+                                <span t-field="doc.partner_id.name"/>
+                            </strong>
+                            <br/>
+                            <span t-field="doc.partner_id.street"/>,
+                            <span t-field="doc.partner_id.city"/>
+                            <br/>
+                            <t t-if="doc.partner_id.phone">
+                                <strong>Contact No.</strong>
+                                :
+                                <span t-field="doc.partner_id.phone"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_id.mobile">
+                                <strong>Mobile No.</strong>
+                                :
+                                <span t-field="doc.partner_id.mobile"/>
+                                <br/>
+                            </t>
+                            <t t-if="doc.partner_id.email">
+                                <strong>Email</strong>
+                                :
+                                <span t-field="doc.partner_id.email"/>
+                                <br/>
+                            </t>
+                            <strong>Kind Attention</strong>
+                            :
+                            <span t-field="doc.kind_child_attention_id.name"/>
+                        </div>
+
+                        <table class="table table-bordered" style="line-height: 1;">
+                            <tr>
+                                <td style="width: 25%; background-color: #f8f9fa;">
+                                    <strong>Customer Reference</strong>
+                                </td>
+                                <td style="width: 25%;">
+                                    <span t-field="doc.client_order_ref"/>
+                                </td>
+                                <td style="width: 25%; background-color: #f8f9fa;">
+                                    <strong>Offer Reference No.</strong>
+                                </td>
+                                <td style="width: 25%;">
+                                    <span t-field="doc.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" style="background-color: #f8f9fa;vertical-align: middle">
+                                    <strong>Project Reference</strong>
+                                </td>
+                                <td rowspan="2" style="vertical-align: middle">
+                                    <span t-field="doc.project_reference_id.name"/>
+                                </td>
+                                <td style="background-color: #f8f9fa;">
+                                    <strong>Revision No.</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.revision"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f8f9fa;">
+                                    <strong>Date</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.date_order" t-options='{"widget": "date"}'/>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- Order Lines Table -->
+                        <table class="table table-bordered" style="margin-top: 15px;">
+                            <thead style="background-color: #f0f0f0;">
+                                <tr>
+                                    <th style="width: 5%;">Sl No.</th>
+                                    <th style="width: 55%;">Description</th>
+                                    <th style="width: 15%;" class="text-center">Quantity (Nos)</th>
+                                    <th style="width: 12%;" class="text-center">Unit Price</th>
+                                    <th style="width: 13%;" class="text-end">Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="line_index" t-value="0"/>
+                                <t t-foreach="doc.order_line" t-as="line">
+                                    <t t-set="line_index" t-value="line_index + 1"/>
+                                    <tr>
+                                        <td class="text-center">
+                                            <span t-esc="line_index"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.product_uom_qty"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="line.price_unit" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-field="line.price_subtotal"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!-- Totals Section -->
+                        <div class="row">
+                            <div class="col-2"/>
+                            <div class="col-10">
+                                <table class="table table-bordered" style="width: 100%;">
+                                    <!-- Total Quantity -->
+                                    <tr style="background-color: #f0f0f0;">
+                                        <td style="width: 40%; font-size: 14px;">
+                                            <strong>Total Quantity (Nos)</strong>
+                                        </td>
+                                        <td style="width: 60%;" class="text-end">
+                                            <strong>
+                                                <t t-set="total_qty" t-value="0"/>
+                                                <t t-foreach="doc.order_line" t-as="line">
+                                                    <t t-set="total_qty" t-value="total_qty + line.product_uom_qty"/>
+                                                </t>
+                                                <span t-esc="int(total_qty)"/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <!-- Total Amount Excluding VAT -->
+                                    <tr style="background-color: #f0f0f0;">
+                                        <td style="font-size: 14px;">
+                                            <strong>Total Amount Excluding Taxes</strong>
+                                        </td>
+                                        <td class="text-end">
+                                            <strong>
+                                                <span t-field="doc.currency_id.name"/>
+                                                <span t-field="doc.amount_untaxed"
+                                                      t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <!-- VAT Percentage -->
+                                    <tr style="background-color: #f0f0f0;">
+                                        <td>
+                                            <strong>VAT</strong>
+                                        </td>
+                                        <td class="text-end">
+                                            <strong>
+                                                <t t-if="doc.amount_untaxed > 0">
+                                                    <t t-set="vat_percent"
+                                                       t-value="(doc.amount_tax / doc.amount_untaxed) * 100"/>
+                                                    <span t-esc="'{:.2f}%'.format(vat_percent)"/>
+                                                </t>
+                                                <t t-if="doc.amount_untaxed == 0">
+                                                    0.00%
+                                                </t>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <!-- Currency -->
+                                    <tr style="background-color: #f0f0f0;">
+                                        <td>
+                                            <strong>Currency</strong>
+                                        </td>
+                                        <td class="text-end">
+                                            <strong>
+                                                <span t-field="doc.currency_id.name"/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <!-- Total Amount Including VAT -->
+                                    <tr style="background-color: #f0f0f0;">
+                                        <td>
+                                            <strong>Total Amount</strong>
+                                        </td>
+                                        <td class="text-end">
+                                            <strong>
+                                                <span t-field="doc.currency_id.name"/>
+                                                <span t-field="doc.amount_total"
+                                                      t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <!-- Total Amount in Words -->
+                                    <tr style="background-color: #f0f0f0;">
+                                        <td>
+                                            <strong>Total Amount in Words (<span t-field="doc.currency_id.name"/>)
+                                            </strong>
+                                        </td>
+                                        <td class="text-end">
+                                            <strong>
+                                                <span t-esc="doc.currency_id.amount_to_text(doc.amount_total)"/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PAGE 2: Terms, Bank Details, Notes -->
+                    <div class="page" style="page-break-before: always;">
+                        <div class="header">
+                            <!-- Header with Logo and Company Info -->
+                            <div class="row">
+                                <div class="col-6">
+                                    <!-- Company Logo -->
+                                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
+                                         style="max-height: 80px; max-width: 200px;" alt="Company Logo"/>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <!-- Company Information -->
+                                    <strong>
+                                        <span t-field="doc.company_id.name"/>
+                                    </strong>
+                                    <br/>
+                                    <span t-field="doc.company_id.street"/>
+                                    /
+                                    <span t-field="doc.company_id.street2"/>
+                                    <br/>
+                                    <span t-field="doc.company_id.city"/>,
+                                    <span t-field="doc.company_id.state_id"/>
+                                    <br/>
+                                    <t t-if="doc.company_id.phone">Tel:
+                                        <span t-field="doc.company_id.phone"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.website">Website:
+                                        <span t-field="doc.company_id.website"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.email">Email:
+                                        <span t-field="doc.company_id.email"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Title Section -->
+                        <div class="text-center" style="background-color: #17a2b8; color: white; padding: 8px; ">
+                            <h4 style="margin: 0;">OFFER</h4>
+                            <h5 style="margin: 0;">
+                                <span t-field="doc.project_type_id.name"/>
+                            </h5>
+                        </div>
+                        <br/>
+
+                        <!-- Reference Information Table (New Design - 4 columns) -->
+                        <table class="table table-bordered" style="line-height: 1;">
+                            <tr>
+                                <td style="width: 25%; background-color: #f8f9fa;">
+                                    <strong>Customer Reference</strong>
+                                </td>
+                                <td style="width: 25%;">
+                                    <span t-field="doc.client_order_ref"/>
+                                </td>
+                                <td style="width: 25%; background-color: #f8f9fa;">
+                                    <strong>Offer Reference No.</strong>
+                                </td>
+                                <td style="width: 25%;">
+                                    <span t-field="doc.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" style="background-color: #f8f9fa;vertical-align: middle">
+                                    <strong>Project Reference</strong>
+                                </td>
+                                <td rowspan="2" style="vertical-align: middle">
+                                    <span t-field="doc.project_reference_id.name"/>
+                                </td>
+                                <td style="background-color: #f8f9fa;">
+                                    <strong>Revision No.</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.revision"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f8f9fa;">
+                                    <strong>Date</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.date_order" t-options='{"widget": "date"}'/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Terms & Conditions Section -->
+                        <div style="margin-top: 20px;">
+                            <strong style="font-size: 16px;">TERMS &amp; CONDITIONS:</strong>
+                        </div>
+                        <table class="table table-bordered" style="line-height: 1;">
+                            <tr>
+                                <td>
+                                    <span t-field="doc.note"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="page" style="page-break-before: always;">
+                        <div class="header">
+                            <!-- Header with Logo and Company Info -->
+                            <div class="row">
+                                <div class="col-6">
+                                    <!-- Company Logo -->
+                                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
+                                         style="max-height: 80px; max-width: 200px;" alt="Company Logo"/>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <!-- Company Information -->
+                                    <strong>
+                                        <span t-field="doc.company_id.name"/>
+                                    </strong>
+                                    <br/>
+                                    <span t-field="doc.company_id.street"/>
+                                    /
+                                    <span t-field="doc.company_id.street2"/>
+                                    <br/>
+                                    <span t-field="doc.company_id.city"/>,
+                                    <span t-field="doc.company_id.state_id"/>
+                                    <br/>
+                                    <t t-if="doc.company_id.phone">Tel:
+                                        <span t-field="doc.company_id.phone"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.website">Website:
+                                        <span t-field="doc.company_id.website"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.company_id.email">Email:
+                                        <span t-field="doc.company_id.email"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Title Section -->
+                        <div class="text-center" style="background-color: #17a2b8; color: white; padding: 8px; ">
+                            <h4 style="margin: 0;">OFFER</h4>
+                            <h5 style="margin: 0;">
+                                <span t-field="doc.project_type_id.name"/>
+                            </h5>
+                        </div>
+                        <br/>
+
+                        <!-- Reference Information Table (New Design - 4 columns) -->
+                        <table class="table table-bordered" style="line-height: 1;">
+                            <tr>
+                                <td style="width: 25%; background-color: #f8f9fa;">
+                                    <strong>Customer Reference</strong>
+                                </td>
+                                <td style="width: 25%;">
+                                    <span t-field="doc.client_order_ref"/>
+                                </td>
+                                <td style="width: 25%; background-color: #f8f9fa;">
+                                    <strong>Offer Reference No.</strong>
+                                </td>
+                                <td style="width: 25%;">
+                                    <span t-field="doc.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" style="background-color: #f8f9fa;vertical-align: middle">
+                                    <strong>Project Reference</strong>
+                                </td>
+                                <td rowspan="2" style="vertical-align: middle">
+                                    <span t-field="doc.project_reference_id.name"/>
+                                </td>
+                                <td style="background-color: #f8f9fa;">
+                                    <strong>Revision No.</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.revision"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f8f9fa;">
+                                    <strong>Date</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.date_order" t-options='{"widget": "date"}'/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Bank Details Section -->
+                        <div style="margin-top: 20px;line-height: 1;">
+                            <strong style="font-size: 16px;">BANK DETAILS:</strong>
+                        </div>
+                        <table class="table table-bordered" style="line-height: 1;">
+                            <tr>
+                                <td style="background-color: #f8f9fa;">
+                                    <strong>Account Name</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.partner_bank_id.partner_id.name"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="background-color: #f8f9fa;">
+                                    <strong>Bank</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.bank_address"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f8f9fa;">
+                                    <strong>Account Number</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.bank_account_number"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f8f9fa;">
+                                    <strong>Currency</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.bank_currency.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f8f9fa;">
+                                    <strong>IBAN</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.bank_iban"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f8f9fa;">
+                                    <strong>SWIFT Code</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.bank_cx_code"/>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <!-- Notes Section -->
+                        <div style="margin-top: 20px;line-height: 1;">
+                            <strong style="font-size: 16px;">NOTES:</strong>
+                        </div>
+                        <table class="table table-bordered" style="line-height: 1;">
+                            <tr>
+                                <td>
+                                    <span t-field="doc.note_text"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                           <div class="row">
+                              <strong>
+                                    Best Regards,
+                                    <br/>
+                                    <span t-field="doc.partner_id.name"/>
+                                </strong>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <strong t-field="doc.manager_id.name"/>
+                                <br/>
+                                <span t-field="doc.manager_id.job_id.name"/>
+                        </div>
+                    </div>
+                    <div class="footer">
+
+                        <div class="row">
+                            <div class="col-4" style="margin: 20px;">
+
+                            </div>
+                            <div class="col-4 text-center" style="padding-top: 20px;">
+                                <span>Page
+                                    <span class="page"/>
+                                    /
+                                    <span class="topage"/>
+                                </span>
+                            </div>
+                            <div class="col-4"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

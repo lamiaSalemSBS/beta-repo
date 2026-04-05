@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Wizard Form View -->
+    <record id="view_enquiry_wizard_form" model="ir.ui.view">
+        <field name="name">enquiry.wizard.form</field>
+        <field name="model">enquiry.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Enquiry Actions">
+
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open wizard from enquiry -->
+    <record id="action_enquiry_wizard" model="ir.actions.act_window">
+        <field name="name">Enquiry Actions</field>
+        <field name="res_model">enquiry.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_crm_enquiry_custom"/>
+        <field name="binding_view_types">form</field>
+    </record>
+</odoo>

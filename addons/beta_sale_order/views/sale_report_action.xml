@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- Tight margins paperformat (no unsupported fields) -->
+  <record id="beta_paperformat" model="report.paperformat">
+    <field name="name">Beta Sales Order (Tight)</field>
+    <field name="format">A4</field>
+    <field name="orientation">Portrait</field>
+
+    <!-- margins in mm -->
+    <field name="margin_top">8</field>        <!-- try 6 or 5 if you want even less -->
+    <field name="margin_bottom">12</field>
+    <field name="margin_left">10</field>
+    <field name="margin_right">10</field>
+
+    <!-- keep header area minimal -->
+    <field name="header_line" eval="False"/>
+    <field name="header_spacing">0</field>
+  </record>
+
+  <!-- Report action bound to that paperformat -->
+  <record id="action_report_beta_sale_order" model="ir.actions.report">
+    <field name="name">Beta Sales Order</field>
+    <field name="model">sale.order</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">beta_sale_order.report_beta_saleorder</field>
+    <field name="print_report_name">'Beta Sales Order - %s' % (object.name)</field>
+    <field name="binding_model_id" ref="sale.model_sale_order"/>
+    <field name="binding_type">report</field>
+    <field name="paperformat_id" ref="beta_sale_order.beta_paperformat"/>
+  </record>
+</odoo>

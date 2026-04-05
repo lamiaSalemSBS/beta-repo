@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- List view for sale.order.term -->
+    <record id="view_sale_order_term_tree" model="ir.ui.view">
+      <field name="name">sale.order.term.list</field>
+      <field name="model">sale.order.term</field>
+      <field name="arch" type="xml">
+        <list editable="bottom">
+          <field name="name" string="Title"/>
+          <field name="term_description" string="Description"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- Form view for sale.order.term -->
+    <record id="view_sale_order_term_form" model="ir.ui.view">
+      <field name="name">sale.order.term.form</field>
+      <field name="model">sale.order.term</field>
+      <field name="arch" type="xml">
+        <form string="Term">
+          <group>
+            <field name="name"/>
+          </group>
+          <group>
+            <field name="term_description" nolabel="1" placeholder="Write the term details here..."/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- Add a new tab to sale.order and point to the views above -->
+    <record id="beta_view_order_form_terms_tab" model="ir.ui.view">
+      <field name="name">beta.sale.order.form.terms.tab</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="priority">30</field>
+      <field name="arch" type="xml">
+        <xpath expr="//sheet/notebook/page[last()]" position="after">
+          <page string="Terms &amp; Conditions" name="terms_conditions">
+            <field name="x_term_ids"
+                   context="{
+                     'tree_view_ref': 'beta_sale_order.view_sale_order_term_tree',
+                     'form_view_ref': 'beta_sale_order.view_sale_order_term_form'
+                   }"/>
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <!-- MAIN LAYOUT TEMPLATE -->
+        <template id="purchase_order_template_report_view">
+            <t t-call="web.basic_layout">
+                <div class="header">
+                    <div style="
+                text-align: center;
+                font-weight: bold;
+                color: #b3b3b3;
+                font-size: 20px;
+                text-transform: uppercase;
+                padding-top: 10px;
+            ">
+                        CONTRACT AGREEMENT: PURCHASE ORDER
+                    </div>
+                </div>
+
+                <t t-set="o" t-value="o.with_context(lang=o.vendor_id.lang)"/>
+
+                <div class="page">
+                    <table style="width:100%; border-collapse:collapse; border: none;">
+                        <tr>
+                            <!-- Left: Logo -->
+                            <td style="width: 50%; border:none; vertical-align: middle;">
+                                <img t-att-src="'/web/image/res.company/%d/logo' % o.company_id.id"
+                                     style="max-height:60px;"/>
+                            </td>
+
+                            <!-- Right: Company Info -->
+                            <td style="width: 50%; border:none; text-align:left; font-size:12px; line-height:1.4;">
+                                <div style="font-weight:bold; font-size:14px;">
+                                    <t t-esc="o.company_id.name"/>
+                                </div>
+                                <div>
+                                    <t t-esc="o.company_id.street"/>
+                                    <t t-if="o.company_id.street2">,
+                                        <t t-esc="o.company_id.street2"/>
+                                    </t>
+                                    <t t-if="o.company_id.city">,
+                                        <t t-esc="o.company_id.city"/>
+                                    </t>
+                                    <t t-if="o.company_id.state_id">,
+                                        <t t-esc="o.company_id.state_id.name"/>
+                                    </t>
+                                    <t t-if="o.company_id.country_id">,
+                                        <t t-esc="o.company_id.country_id.name"/>
+                                    </t>
+                                </div>
+                                <div>Mob:
+                                    <t t-esc="o.company_id.mobile"/>
+                                </div>
+                                <div>Tel:
+                                    <t t-esc="o.company_id.phone"/>
+                                </div>
+                                <div>
+                                    Mail:
+                                    <t t-esc="o.company_id.email"/>
+                                    <br/>
+                                    <t>
+                                        purchase@beta-transformers.com
+                                    </t>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="width:100%; margin-top:10px; font-size:12px; overflow:hidden;">
+
+                        <!-- Supplier Information Box -->
+                        <div style="width:45%; float:left; border:1px solid #000; padding:8px;">
+                            <div style="font-weight:bold; margin-bottom:4px; border-bottom:1px solid #000; padding-bottom:3px;">
+                                SUPPLIER INFORMATION
+                            </div>
+                            <div>
+                                <strong>Name:</strong>
+                                <t t-esc="o.vendor_id.name"/>
+                            </div>
+                            <div>
+                                <strong>Address:</strong>
+                                <t t-esc="o.vendor_id.contact_address"/>
+                            </div>
+                            <div>
+                                <strong>Tel:</strong>
+                                <t t-esc="o.vendor_id.phone"/>
+                            </div>
+                            <div>
+                                <strong>Mob:</strong>
+                                <t t-esc="o.vendor_id.mobile"/>
+                            </div>
+                            <div>
+                                <strong>Mail:</strong>
+                                <a t-att-href="'mailto:%s' % o.vendor_id.email"
+                                   style="color:blue; text-decoration:underline;">
+                                    <t t-esc="o.vendor_id.email"/>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- PO Information Box -->
+                        <div style="width:45%; float:right; border:1px solid #000; padding:8px; box-sizing:border-box;">
+                            <div style="font-weight:bold; margin-bottom:4px; border-bottom:1px solid #000; padding-bottom:3px;">
+                                PO INFORMATION
+                            </div>
+                            <div>
+                                <strong>Date:</strong>
+                                <t t-esc="o.create_date.strftime('%d-%B-%Y') if o.create_date else ''"/>
+                            </div>
+                            <div>
+                                <strong>Ordered By:</strong>
+                                <t t-esc="o.company_id.name"/>
+                            </div>
+                            <div>
+                                <strong>Payment Terms:</strong>
+                                <t t-esc="o.payment_term_id.name"/>
+                            </div>
+                            <div>
+                                <strong>Delivery Terms:</strong>
+                                <t t-esc="o.delivery_terms if o.delivery_terms else ''"/>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div style="text-align:center; font-size:15px; font-weight:bold; margin-top:20px; color:grey;">
+                        Contract Agreement for
+                        <t t-esc="o.contract_period"/>.:
+                        <t t-esc="o.line_ids[0].product_id.default_code if o.line_ids else ''"/>
+                        <span style="margin-left:15px;">Currency:
+                            <t t-esc="o.currency_id.name"/>
+                        </span>
+
+                    </div>
+
+                    <table style="width:100%; border-collapse:collapse; font-size:12px; margin-top:20px; background-color:white;"
+                           border="1">
+                        <thead style="background-color:#f0f0f0;">
+                            <tr>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Sl. No</th>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Item Number</th>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Description</th>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Quantity</th>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Weight (kg)/Unit
+                                </th>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Contract Period</th>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Total Weight (kg)
+                                    Monthly
+                                </th>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Unit Price/kg (<t
+                                        t-esc="o.currency_id.name"/>)
+                                </th>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Monthly Amount (<t
+                                        t-esc="o.currency_id.symbol"/>)
+                                </th>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Monthly Contract Qty
+                                    (Nos)
+                                </th>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Monthly Contract
+                                    Total Weight (kg)
+                                </th>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Monthly Contract
+                                    Amount (<t t-esc="o.currency_id.symbol"/>)
+                                </th>
+                                <th style="padding:5px; text-align:center; border:1px solid black;">Delivery Terms</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="0"/>
+                            <t t-foreach="o.line_ids" t-as="line">
+                                <t t-set="counter" t-value="counter + 1"/>
+                                <tr>
+                                    <td style="padding:5px; text-align:center; border:1px solid black;">
+                                        <t t-esc="counter"/>
+                                    </td>
+                                    <td style="padding:5px; text-align:center; border:1px solid black;">
+                                        <t t-esc="line.product_id.default_code or ''"/>
+                                    </td>
+                                    <td style="padding:5px; border:1px solid black;">
+                                        <t t-esc="line.product_id.display_name or ''"/>
+                                    </td>
+                                    <td style="padding:5px; text-align:center; border:1px solid black;">
+                                        <t t-esc="line.product_qty or 0.0"/>
+                                    </td>
+                                    <td style="padding:5px; text-align:center; border:1px solid black;">
+                                        <t t-esc="line.weight_kg_unit or 0.0"/>
+                                    </td>
+                                    <td style="padding:5px; text-align:center; border:1px solid black;">
+                                        <t t-esc="line.contract_period"/>
+                                    </td>
+                                    <td style="padding:5px; text-align:center; border:1px solid black;">
+                                        <t t-esc="line.total_weight_kg_monthly"/>
+                                    </td>
+                                    <td style="padding:5px; text-align:center; border:1px solid black;">
+                                        <t t-esc="line.unit_price_per_kg"/>
+                                    </td>
+                                    <td style="padding:5px; text-align:center; border:1px solid black;">
+                                        <t t-esc="line.monthly_amount"/>
+                                    </td>
+                                    <td style="padding:5px; text-align:center; border:1px solid black;">
+                                        <t t-esc="line.monthly_contract_qty"/>
+                                    </td>
+                                    <td style="padding:5px; text-align:center; border:1px solid black;">
+                                        <t t-esc="line.monthly_contract_total_weight"/>
+                                    </td>
+                                    <td style="padding:5px; text-align:center; border:1px solid black;">
+                                        <t t-esc="line.monthly_contract_amount"/>
+                                    </td>
+                                    <td style="padding:5px; text-align:center; border:1px solid black;">
+                                        <t t-esc="line.delivery_terms"/>
+                                    </td>
+
+
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tfoot style="font-weight:bold; background-color:#f9f9f9;">
+                            <tr>
+                                <td colspan="3" style="padding:5px; border:1px solid black;"></td>
+                                <td colspan="5" style="padding:5px; text-align:right; border:1px solid black;">
+                                    Total Amount (Monthly)
+                                    <t t-esc="o.currency_id.name"/>
+                                </td>
+                                <td style="padding:5px; border:1px solid black;"></td>
+                                <td colspan="2" style="padding:5px; text-align:right; border:1px solid black;">
+                                    Total Amount for
+                                    <t t-esc="o.contract_period"/>
+                                    Agreement
+                                    <t t-esc="o.currency_id.name"/>
+                                </td>
+                                <td colspan="2" style="padding:5px; border:1px solid black;"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <!-- Note -->
+                    <div style="margin-top: 15px; font-weight: bold; font-size: 12px;">
+                        Note: Weight Has No Positive Tolerance.
+                    </div>
+
+                    <!-- Signature Table -->
+                    <table style="width: 100%; margin-top: 80px; border-collapse: collapse;">
+                        <tr>
+                            <!-- Left Signature -->
+                            <td style="width: 50%; vertical-align: top; padding: 5px; font-size: 14px;   text-align: center;">
+                                GM Fan Liming
+                                <br/>
+                                Hunan Guochang Electric Power Co. ltd
+                            </td>
+                            <!-- Right Signature -->
+                            <td style="width: 50%; vertical-align: top; padding: 5px; text-align: right; font-size: 14px;   text-align: center;">
+                                Dr. RAAD SHIMAL
+                                <br/>
+                                CEO, Beta Transformers FZCO
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="page-break-after: always;"></div>
+
+                </div>
+
+                <div class="page">
+                    <div style="font-size: 23px; font-weight: bold; text-transform: uppercase; margin-bottom: 10px;">
+                        ORDER CONFIRMATION:
+                    </div>
+                    <div style="font-size: 20px;">
+                        We kindly ask for an order acknowledgement of order within 2 days from the receipt of Purchase
+                        Order.
+                        <br/>
+                        Please be aware that the above-mentioned delivery dates stand for goods delivered to our
+                        factory.
+                        <br/>
+                        The seller shall only deliver products which comply with the specified drawing or
+                        specifications. Changes of any kind which could in any way impair form, design, processability
+                        or reliability shall be notified to us in good time prior to initial delivery.
+                        <br/>
+                        Please note that your invoice for this order must contain all the information and data required
+                        by law. The payment period stipulated in the agreed payment terms shall not commence prior to
+                        receipt of a complete original invoice address stated above.
+                        <br/>
+                        Any deviation, technically as well as concerning lead time must be reported immediately to BETA
+                        TRANSFORMERS FZCO, Jebel Ali, Dubai, UAE and have to be stated in the order confirmation
+                        explicitly.
+                        <br/>
+                        If the purchase order confirmation deviates from the order, BETA Transformers FZCO shall only be
+                        bound by such deviation if it has been accepted in writing.
+                        <br/>
+                        The unconditional acceptance by BETA Transformers FZCO of the goods delivered by the seller
+                        shall not be considered as acceptance of any such deviation.
+                        <br/>
+                        Beta Transformers FZCO's obligation to fulfill this agreement is subject to the provision that
+                        fulfillment is not prevented by any impediments arising out of national and international
+                        foreign trade and customs requirements, or any embargoes (or other restrictions).
+                    </div>
+                    <div style="margin-top: 8px; font-size: 20px;">
+                        <strong>Specification:</strong>
+                        Mild Steel
+                        <br/>
+                        <strong>PAINT SPEC:</strong>
+                        PAINT SHADE RAL 7033
+                        <br/>
+                        <strong>The Surface should be Powder Coating Process 120um, C3</strong>
+                    </div>
+
+
+                    <table style="width: 100%; margin-top: 15px; border-collapse: collapse;">
+                        <tr>
+                            <!-- Left Signature -->
+                            <td style="width: 50%; vertical-align: top; padding: 5px; font-size: 14px;   text-align: center;">
+                                GM Fan Liming
+                                <br/>
+                                Hunan Guochang Electric Power Co. ltd
+                            </td>
+                            <!-- Right Signature -->
+                            <td style="width: 50%; vertical-align: top; padding: 5px; text-align: right; font-size: 14px;   text-align: center;">
+                                Dr. RAAD SHIMAL
+                                <br/>
+                                CEO, Beta Transformers FZCO
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="page-break-after: always;"></div>
+
+                </div>
+
+
+                <!-- New Page: Contract & Shipping Terms -->
+                <div class="page">
+
+                    <!-- Contract Agreement Terms -->
+                    <div style="margin-bottom: 15px;">
+                        <div>
+                            <span style="font-weight: bold; font-size: 20px; color: #000; display: inline-block; border-bottom: 2px solid #000;">
+                                Contract Agreement Terms:
+                            </span>
+                        </div>
+
+                        <table style="font-size: 18px; line-height: 1.6; width: 100%;">
+                            <tr>
+                                <td style="padding: 2px 0;">1.1. 200 Nos 400kVA 11kV – above mentioned quantity on a
+                                    monthly basis.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2px 0;">1.2. The complete agreement will last for 10 months, and
+                                    there will be 2000 Nos of 400kVA 11kV in total.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2px 0;">1.3. Delivery conditions: CIF Jebel Ali, continuously each
+                                    month as per the schedule (200 Nos).
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2px 0;">1.4. Cancellation of the contract with two months’ notice.
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Commercial Terms -->
+                    <div style="margin-bottom: 15px;">
+                        <div>
+                            <span style="font-weight: bold; font-size: 20px; color: #000; display: inline-block; border-bottom: 2px solid #000;">
+                                Commercial Terms:
+                            </span>
+                        </div>
+
+                        <table style="font-size: 18px; line-height: 1.6; width: 100%;">
+                            <tr>
+                                <td style="padding: 2px 0;">
+                                    <strong>1.1. Payment:</strong>
+                                    10% Advance against Purchase Order &amp; Balance against shipping documents
+                                    (Container wise).
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2px 0;">
+                                    <strong>1.2. Insurance:</strong>
+                                    Shall be arranged by the seller.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2px 0;">
+                                    <strong>1.3. Payment:</strong>
+                                    Has to be paid upon container shipment.
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Shipment Terms -->
+                    <div style="margin-bottom: 15px;">
+                        <div>
+                            <span style="font-weight: bold; font-size: 20px; color: #000; display: inline-block; border-bottom: 2px solid #000;">
+                                Shipment Terms:
+                            </span>
+                        </div>
+
+                        <table style="font-size: 18px; line-height: 1.6; width: 100%;">
+                            <tr>
+                                <td style="padding: 2px 0;">
+                                    <strong>2.1 Terms of Shipment:</strong>
+                                    C.I.F.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2px 0;">
+                                    <strong>2.2 Port of Loading &amp; Discharge:</strong>
+                                    Any Chinese port &amp; Jebel Ali, Dubai.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2px 0;">
+                                    <strong>2.3 Shipment Schedule:</strong>
+                                    Within 21 days of the purchase order, shipments should start. Shipping at RA08SCO-2,
+                                    Jebel Ali Free Zone, Dubai, United Arab Emirates.
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Mandatory Shipping Documents -->
+                    <div style="margin-bottom: 15px;">
+                        <div>
+                            <span style="font-weight: bold; font-size: 20px; color: #000; display: inline-block; border-bottom: 2px solid #000;">
+                                Mandatory Shipping Documents Required:
+                            </span>
+                        </div>
+
+                        <!--                        <div style="font-weight: bold; font-size: 13px; margin-bottom: 8px; color: #000; border-bottom: 2px solid #000; ">-->
+                        <!--                            Mandatory Shipping Documents Required:-->
+                        <!--                        </div>-->
+                        <table style="font-size: 18px; line-height: 1.6; width: 100%;">
+                            <tr>
+                                <td style="padding: 2px 0;">3.1 Three (3) sets of original invoice, packing list duly
+                                    signed and stamped, certificate of origin, dispatch note, Bill of Lading (sea) / AWB
+                                    (air), and all test certificates/reports (if applicable).
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2px 0;">3.2 HS Code must be mentioned on import invoice and bill of
+                                    lading / airway bill.
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Documentation Processing -->
+                    <div>
+                        <div style="margin-bottom: 8px;">
+                            <span style="font-weight: bold; font-size: 20px; color: #000; display: inline-block; border-bottom: 2px solid #000;">
+                                Documentation Processing:
+                            </span>
+                        </div>
+                        <div style="font-size: 18px; line-height: 1.6;">
+                            The above-mentioned documents and test reports must be sent to:
+                            <br/>
+                            <a href="mailto:purchase@beta-transformers.com">
+                                <strong>purchase@beta-transformers.com</strong>
+                            </a> &amp;
+                            <a href="mailto:logistics@beta-transformers.com">
+                                <strong>logistics@beta-transformers.com</strong>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- WRAPPER TEMPLATE THAT LOOPS OVER DOCS -->
+        <template id="purchase_order_report_template_id">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="beta_info_custom.purchase_order_template_report_view" t-lang="o.vendor_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

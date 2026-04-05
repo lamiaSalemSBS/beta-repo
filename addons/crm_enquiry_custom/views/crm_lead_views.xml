@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit CRM Lead Form View -->
+    <record id="view_crm_lead_form_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.form.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Smart Button -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_enquiries" type="object"
+                        class="oe_stat_button" icon="fa-file-text-o">
+                    <field name="enquiry_count" widget="statinfo" string="Enquiries"/>
+                </button>
+            </xpath>
+            <!-- Add Enquiry Button -->
+            <xpath expr="//header" position="inside">
+                <button name="action_create_enquiry" string="Enquiry"
+                        type="object" class="btn-primary"/>
+            </xpath>
+
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="project_reference" options="{'no_quick_create': True}"/>
+                <field name="project_type" options="{'no_open': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="inherit_crm_lead_form_view_quotations" model="ir.ui.view">
+        <field name="name">inherit.crm.new.quotations</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+           <!-- Hide the default quotation button -->
+            <xpath expr="//button[@name='action_sale_quotations_new']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

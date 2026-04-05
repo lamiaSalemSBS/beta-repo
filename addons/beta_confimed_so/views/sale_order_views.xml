@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_view_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.quotation</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                        name="action_view_confirmed_sos"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-shopping-cart"
+                        invisible="confirmed_so_count == 0"
+                >
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">SOs</span>
+                        <span class="o_stat_value">
+                            <field name="confirmed_so_count"/>
+                        </span>
+                    </div>
+                </button>
+            </xpath>
+
+            <!-- Add parent quotation field -->
+            <xpath expr="//field[@name='client_order_ref']" position="after">
+                <field name="parent_quotation_id" widget="many2one" readonly="1"/>
+                <field name="is_confirmed_from_qt" invisible="not is_confirmed_from_qt"/>
+                <field name="has_active_so" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='origin']" position="attributes">
+                <attribute name="invisible">not is_confirmed_from_qt</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_confirm']" position="attributes">
+                <attribute name="confirm">This will create a new Confirmed Sale Order and keep this as a Quotation.
+                    Continue?
+                </attribute>
+                <attribute name="invisible">state in ['sale', 'done', 'cancel'] or is_confirmed_from_qt or has_active_so
+                </attribute>
+
+            </xpath>
+            <xpath expr="//form[1]/header[1]/button[@name='action_confirm'][2]" position="attributes">
+                <attribute name="invisible">
+                    1
+                </attribute>
+            </xpath>
+            <!-- Show normal confirm button for standalone SOs (not from QT) -->
+            <!--            <xpath expr="//button[@name='action_confirm']" position="before">-->
+            <!--                <button-->
+            <!--                    name="action_confirm"-->
+            <!--                    type="object"-->
+            <!--                    string="Confirm"-->
+            <!--                    class="btn-primary"-->
+            <!--                    invisible="state in ['draft', 'sent'] or not is_confirmed_from_qt"-->
+            <!--                />-->
+            <!--            </xpath>-->
+
+            <!-- Cancel & Reset QT button for confirmed SOs -->
+            <xpath expr="//button[@name='action_cancel']" position="attributes">
+                <attribute name="invisible">state not in ['draft', 'sent', 'sale'] or not id or locked or not   is_confirmed_from_qt
+                </attribute>
+            </xpath>
+
+
+            <!-- Reset Quotation button for QTs - Show only when there are confirmed SOs -->
+<!--            <xpath expr="//button[@name='action_cancel']" position="before">-->
+<!--                <button-->
+<!--                        name="reset_quotation"-->
+<!--                        type="object"-->
+<!--                        string="Reset Quotation"-->
+<!--                        class="btn-secondary"-->
+<!--                        invisible="state not in ['draft', 'sent'] or not is_confirmed_from_qt or confirmed_so_count == 0"-->
+<!--                        confirm="This will cancel all confirmed Sale Orders. Continue?"-->
+<!--                />-->
+<!--            </xpath>-->
+
+            <xpath expr="//button[@name='action_cancel']" position="attributes">
+                <attribute name="invisible">is_confirmed_from_qt and state == 'sale'</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_cancel']" position="attributes">
+                <attribute name="invisible">state in ['draft', 'sent'] and not is_confirmed_from_qt
+                </attribute>
+            </xpath>
+
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <div class="alert alert-info" role="alert" invisible="not is_confirmed_from_qt">
+                    <i class="fa fa-info-circle me-2"/>
+                    This Sale Order was created from Quotation:
+                    <strong>
+                        <field name="origin"/>
+                    </strong>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <div class="alert alert-warning" role="alert"
+                     invisible="state not in ['draft', 'sent'] or confirmed_so_count == 0">
+                    <i class="fa fa-exclamation-triangle me-2"/>
+                    This quotation has
+                    <strong>
+                        <field name="confirmed_so_count"/>
+                    </strong>
+                    Sale Order(s).
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+  <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+        <field name="name">Quotations</field>
+        <field name="domain">
+            [
+             ('state', 'in', ('draft', 'sent', 'cancel')),
+            ]
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new quotation!
+            </p><p>
+                From here you can create quotations. When confirmed, they become separate sale orders.
+            </p>
+        </field>
+    </record>
+
+    <!-- Inherit Sales Orders Action - Show only standalone sale orders -->
+    <record id="sale.action_orders" model="ir.actions.act_window">
+        <field name="name">Sales Orders</field>
+        <field name="domain">
+            [('state', '=', 'sale')]
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage your sales orders!
+            </p><p>
+                This view shows only standalone sale orders. Sale orders created from quotations are shown in their respective quotations.
+            </p>
+        </field>
+    </record>
+</odoo>
