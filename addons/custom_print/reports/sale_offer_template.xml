@@ -513,7 +513,7 @@
                               <strong>
                                     Best Regards,
                                     <br/>
-                                    <span t-field="doc.partner_id.name"/>
+                                    <span t-field="doc.company_id.name"/>
                                 </strong>
                                 <br/>
                                 <br/>
