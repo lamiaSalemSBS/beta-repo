@@ -64,7 +64,7 @@
                                         Buyer's Order No.:
 
                                     </strong>
-                                    <span t-field="doc.name"/>
+                                    <span t-field="doc.buyer_order_no"/>
                                 </td>
                             </tr>
 
@@ -75,7 +75,7 @@
                                     <strong>
                                         Proforma Invoice Date:
                                     </strong>
-                                    <span t-field="doc.date_order"
+                                    <span t-field="doc.proforma_invoice_date"
                                           t-options="{'widget': 'date', 'format': 'dd/MM/YYYY'}"/>
                                 </td>
 
@@ -84,7 +84,7 @@
                                         Buyer's Order Date:
                                     </strong>
 
-                                    <span t-field="doc.date_order"
+                                    <span t-field="doc.buyer_order_date"
                                           t-options="{'widget': 'date', 'format': 'dd/MM/YYYY'}"/>
                                 </td>
                             </tr>
@@ -456,7 +456,7 @@
 
                                         <!-- التوقيع يمين -->
                                         <td>
-                                            For<span t-field="doc.partner_id.name"/>,
+                                            For <span t-field="doc.company_id.name"/>,
                                             <br/>
                                             <br/>
                                             <br/>

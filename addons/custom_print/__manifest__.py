@@ -21,6 +21,7 @@
         'purchase',
         'web',
         'hr',
+        'sbs_custom_sale_order',
     ],
     'data': [
         'data/paper_format.xml',
