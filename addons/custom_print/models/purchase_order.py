@@ -5,7 +5,7 @@ from odoo import models, fields, api
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
-    print_layout = fields.Selection([('reference_po', 'Reference PO'), ('contract_agreement', 'Contract Agreement'),('normal_po', 'Normal PO')], string='Print Layout', default='reference_po', required=True)
+    print_layout = fields.Selection([('reference_po', 'Reference PO'), ('contract_agreement', 'Contract Agreement'),('normal_po', 'Normal PO')], string='PO Type', default='reference_po', required=True)
     responsible_eco_id = fields.Many2one('hr.employee', string='ECO.')
     responsible_dr_id = fields.Many2one('hr.employee', string='DR.')
     custom_notes_html = fields.Html(string='Custom Notes')
