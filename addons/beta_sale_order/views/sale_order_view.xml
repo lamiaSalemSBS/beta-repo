@@ -8,6 +8,9 @@
       <!-- Insert right after Payment Terms field -->
       <xpath expr="//field[@name='payment_term_id']" position="after">
         <field name="x_enquiry_reference" placeholder="Type enquiry reference…"/>
+        <field name="buyer_order_no"/>
+        <field name="buyer_order_date"/>
+        <field name="proforma_invoice_date"/>
       </xpath>
     </field>
   </record>

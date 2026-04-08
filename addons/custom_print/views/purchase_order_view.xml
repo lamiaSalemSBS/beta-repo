@@ -22,15 +22,24 @@
             <xpath expr="//field[@name='order_line']//field[@name='product_qty']" position="after">
                 <field name="qty_monthly_nos" column_invisible="parent.print_layout != 'contract_agreement'"/>
                 <field name="weight_unit_kg" column_invisible="parent.print_layout != 'reference_po'"/>
-                <field name="monthly_total_weight_kg" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>
-                <field name="month_total_weight_kg" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>
+<!--                <field name="monthly_total_weight_kg" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>-->
+                <field name="ref_weight_unit_kg" column_invisible="parent.print_layout != 'contract_agreement'"/>
+<!--                <field name="ref_monthly_total_weight_kg" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>-->
+                <field name="ref_monthly_amount" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>
+                <field name="ref_month_total_weight_kg" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>
+                <field name="ref_number_of_months" column_invisible="parent.print_layout != 'contract_agreement'"/>
+                <field name="ref_total_months_qty" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>
+                <field name="ref_total_weight_kg" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>
+                <field name="ref_total_months_amount" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>
+<!--                <field name="month_total_weight_kg" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>-->
                 <field name="total_weight_kg" readonly="1" column_invisible="parent.print_layout != 'reference_po'"/>
             </xpath>
             <xpath expr="//field[@name='order_line']//field[@name='date_planned']" position="after">
                 <field name="delivery_date_text"/>
             </xpath>
             <xpath expr="//field[@name='order_line']//field[@name='price_unit']" position="after">
-                <field name="monthly_amount" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>
+<!--                <field name="ref_total_weight_kg" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>-->
+<!--                <field name="monthly_amount" readonly="1" column_invisible="parent.print_layout != 'contract_agreement'"/>-->
             </xpath>
         </field>
     </record>

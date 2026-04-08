@@ -26,6 +26,10 @@ class SaleOrder(models.Model):
 
     x_offer_notes = fields.Text(string='Notes (one per line)')
 
+    buyer_order_no = fields.Text(string="Buyer's Order No")
+    buyer_order_date = fields.Date(string="Buyer's Order Date")
+    proforma_invoice_date = fields.Date(string="Proforma Invoice Date")
+
     @api.onchange("partner_id")
     def _onchange_partner_id_reset_attention(self):
         """When customer changes, clear Attention if it no longer belongs to that customer."""
