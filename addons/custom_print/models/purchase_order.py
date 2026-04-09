@@ -27,11 +27,11 @@ class PurchaseOrderLine(models.Model):
                                            store=True)
     ref_monthly_amount = fields.Monetary(string='Monthly Amount', compute='_ref_compute_custom_print_totals', store=True,
                                      currency_field='currency_id')
-    ref_month_total_weight_kg = fields.Float(string='Month Total Weight (kg)', compute='_ref_compute_custom_print_totals',
+    ref_month_total_weight_kg = fields.Float(string='Monthly Total Weight (kg)', compute='_ref_compute_custom_print_totals',
                                          store=True)
-    ref_total_weight_kg = fields.Float(string='Total Weight (kg)', compute='_ref_compute_custom_print_totals', store=True)
-    ref_total_months_qty = fields.Float(string='Total qty ', compute='_ref_compute_custom_print_totals', store=True)
-    ref_total_months_amount = fields.Float(string='Total Amount ', compute='_ref_compute_custom_print_totals', store=True)
+    ref_total_weight_kg = fields.Float(string='Contract Total Weight (kg)', compute='_ref_compute_custom_print_totals', store=True)
+    ref_total_months_qty = fields.Float(string='Contract Total qty ', compute='_ref_compute_custom_print_totals', store=True)
+    ref_total_months_amount = fields.Float(string='Contract Total Amount ', compute='_ref_compute_custom_print_totals', store=True)
 
     delivery_date_text = fields.Char(string='Delivery Date')
 
@@ -59,7 +59,7 @@ class PurchaseOrderLine(models.Model):
     def _ref_compute_custom_print_totals(self):
         for line in self:
             line.ref_monthly_total_weight_kg = line.qty_monthly_nos * line.ref_weight_unit_kg
-            line.ref_monthly_amount = line.ref_monthly_total_weight_kg * line.price_unit
+            line.ref_monthly_amount = line.qty_monthly_nos * line.price_unit
             line.ref_month_total_weight_kg = line.ref_weight_unit_kg * line.qty_monthly_nos
             line.ref_total_months_qty = line.qty_monthly_nos * line.ref_number_of_months
             line.ref_total_weight_kg = line.ref_total_months_qty * line.ref_weight_unit_kg
