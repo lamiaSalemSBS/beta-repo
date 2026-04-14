@@ -382,7 +382,7 @@
                         </div>
 
                         <!-- Order Confirmation Section -->
-                        <div style="margin-top: 40px; page-break-before: always;">
+                        <div style="margin-top: 40px; page-break-before: avoid;">
                             <!--                            <div class="text-center">-->
                             <!--                                <h4>PURCHASE ORDER</h4>-->
                             <!--                            </div>-->
