@@ -301,36 +301,40 @@
                                 <td><span t-out="doc.currency_id.amount_to_text(doc.amount_total)"/></td>
                             </tr>
                         </table>
+                        <br/>
+                        <br/>
+                        <br/>
 
                         <!-- Signature Section -->
-<!--                        <div class="row" style="margin-top: 30px;">-->
-<!--                            <div class="col-6 text-center">-->
-<!--                                <t t-if="doc.responsible_dr_id">-->
-<!--                                    <span t-field="doc.responsible_dr_id.name"/>-->
-<!--                                    <br/>-->
-<!--                                    <span>...................................................</span>-->
-<!--                                    <br/>-->
-<!--                                </t>-->
-<!--                            </div>-->
-<!--                            <div class="col-6 text-center">-->
-<!--                                <t t-if="doc.responsible_eco_id">-->
-<!--                                    <span t-field="doc.responsible_eco_id.name"/>-->
-<!--                                    <br/>-->
-<!--                                    <span>...................................................</span>-->
-<!--                                    <br/>-->
-<!--                                </t>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <div class="row" style="margin-top: 30px;">
+                            <div class="col-6 text-center">
+                                <t t-if="doc.responsible_dr_id">
+                                    <span t-field="doc.responsible_dr_id.name"/>
+                                    <br/>
+                                    <span>...................................................</span>
+                                    <br/>
+                                </t>
+                            </div>
+                            <div class="col-6 text-center">
+                                <t t-if="doc.responsible_eco_id">
+                                    <span t-field="doc.responsible_eco_id.name"/>
+                                    <br/>
+                                    <span>...................................................</span>
+                                    <br/>
+                                </t>
+                            </div>
+                        </div>
 
                         <!-- Order Confirmation Section -->
                         <div style="margin-top: 40px; page-break-before: always;">
-<!--                            <div class="text-center">-->
-<!--                                <h4>PURCHASE ORDER</h4>-->
-<!--                            </div>-->
+                            <!--                        <div style="margin-top: 40px; page-break-after: always;">-->
+                            <!--                            <div class="text-center">-->
+                            <!--                                <h4>PURCHASE ORDER</h4>-->
+                            <!--                            </div>-->
 
-<!--                            <div style="margin-top: 20px;">-->
-<!--                                <strong>ORDER CONFIRMATION:</strong>-->
-<!--                            </div>-->
+                            <!--                            <div style="margin-top: 20px;">-->
+                            <!--                                <strong>ORDER CONFIRMATION:</strong>-->
+                            <!--                            </div>-->
 
                             <!-- Original static text - commented out
                             <div style="margin-top: 15px; text-align: justify; line-height: 1.6;">
@@ -389,79 +393,83 @@
                             </t>
 
                             <!-- Signature Section -->
-                            <div class="row" style="margin-top: 30px;">
-                                <div class="col-6 text-center">
-                                    <t t-if="doc.responsible_dr_id">
-                                        <span t-field="doc.responsible_dr_id.name"/>
-                                        <br/>
-                                        <span>...................................................</span>
-                                        <br/>
-                                    </t>
-                                </div>
-                                <div class="col-6 text-center">
-                                    <t t-if="doc.responsible_eco_id">
-                                        <span t-field="doc.responsible_eco_id.name"/>
-                                        <br/>
-                                        <span>...................................................</span>
-                                        <br/>
-                                    </t>
-                                </div>
-                            </div>
+                            <!--                            <div class="row" style="margin-top: 30px;">-->
+                            <!--                                <div class="col-6 text-center">-->
+                            <!--                                    <t t-if="doc.responsible_dr_id">-->
+                            <!--                                        <span t-field="doc.responsible_dr_id.name"/>-->
+                            <!--                                        <br/>-->
+                            <!--                                        <span>...................................................</span>-->
+                            <!--                                        <br/>-->
+                            <!--                                    </t>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="col-6 text-center">-->
+                            <!--                                    <t t-if="doc.responsible_eco_id">-->
+                            <!--                                        <span t-field="doc.responsible_eco_id.name"/>-->
+                            <!--                                        <br/>-->
+                            <!--                                        <span>...................................................</span>-->
+                            <!--                                        <br/>-->
+                            <!--                                    </t>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
 
                             <!-- Commercial and Shipment Terms -->
-                            <div style="margin-top: 40px; page-break-before: always;">
-<!--                                <div class="text-center">-->
-<!--                                    <h4>PURCHASE ORDER</h4>-->
-<!--                                </div>-->
+                            <!--                            <div style="margin-top: 40px; page-break-before: always;">-->
+                            <div style="margin-top: 40px; page-break-after: avoid;">
+                                <!--                                <div class="text-center">-->
+                                <!--                                    <h4>PURCHASE ORDER</h4>-->
+                                <!--                                </div>-->
 
-<!--                                <div style="margin-top: 30px;">-->
-<!--                                    <strong>-->
-<!--                                        <u>Commercial terms:</u>-->
-<!--                                    </strong>-->
-<!--                                    <p style="margin-left: 20px;">-->
-<!--                                        1.1. Payment: ???-->
-<!--                                        <br/>-->
-<!--                                        1.2. Insurance: ???-->
-<!--                                    </p>-->
-<!--                                </div>-->
-<!---->
-<!--                                <div style="margin-top: 20px;">-->
-<!--                                    <strong>-->
-<!--                                        <u>Shipment terms:</u>-->
-<!--                                    </strong>-->
-<!--                                    <p style="margin-left: 20px;">-->
-<!--                                        2.1 Terms of shipment: ???-->
-<!--                                        <br/>-->
-<!--                                        2.2 Delivery should be within ??? days from the date of PO.-->
-<!--                                        <br/>-->
-<!--                                        2.3 Port of Loading: ???-->
-<!--                                        <br/>-->
-<!--                                        2.4 Port of discharge: ???-->
-<!--                                        <br/>-->
-<!--                                        2.5 Shipment schedule: ???-->
-<!--                                    </p>-->
-<!--                                </div>-->
+                                <!--                                <div style="margin-top: 30px;">-->
+                                <!--                                    <strong>-->
+                                <!--                                        <u>Commercial terms:</u>-->
+                                <!--                                    </strong>-->
+                                <!--                                    <p style="margin-left: 20px;">-->
+                                <!--                                        1.1. Payment: ???-->
+                                <!--                                        <br/>-->
+                                <!--                                        1.2. Insurance: ???-->
+                                <!--                                    </p>-->
+                                <!--                                </div>-->
+                                <!---->
+                                <!--                                <div style="margin-top: 20px;">-->
+                                <!--                                    <strong>-->
+                                <!--                                        <u>Shipment terms:</u>-->
+                                <!--                                    </strong>-->
+                                <!--                                    <p style="margin-left: 20px;">-->
+                                <!--                                        2.1 Terms of shipment: ???-->
+                                <!--                                        <br/>-->
+                                <!--                                        2.2 Delivery should be within ??? days from the date of PO.-->
+                                <!--                                        <br/>-->
+                                <!--                                        2.3 Port of Loading: ???-->
+                                <!--                                        <br/>-->
+                                <!--                                        2.4 Port of discharge: ???-->
+                                <!--                                        <br/>-->
+                                <!--                                        2.5 Shipment schedule: ???-->
+                                <!--                                    </p>-->
+                                <!--                                </div>-->
 
-<!--                                <div style="margin-top: 20px;">-->
-<!--                                    <strong>-->
-<!--                                        <u>Mandatory Shipping Documents Required.</u>-->
-<!--                                    </strong>-->
-<!--                                    <p style="margin-left: 20px;">-->
-<!--                                        3.1 ???-->
-<!--                                        <br/>-->
-<!--                                        3.2 ???-->
-<!--                                    </p>-->
-<!--                                </div>-->
+                                <!--                                <div style="margin-top: 20px;">-->
+                                <!--                                    <strong>-->
+                                <!--                                        <u>Mandatory Shipping Documents Required.</u>-->
+                                <!--                                    </strong>-->
+                                <!--                                    <p style="margin-left: 20px;">-->
+                                <!--                                        3.1 ???-->
+                                <!--                                        <br/>-->
+                                <!--                                        3.2 ???-->
+                                <!--                                    </p>-->
+                                <!--                                </div>-->
 
-<!--                                <div style="margin-top: 20px;">-->
-<!--                                    <strong>-->
-<!--                                        <u>Documentation Processing</u>-->
-<!--                                    </strong>-->
-<!--                                    <p>The above mentioned documentations and test reports have to sent by separate-->
-<!--                                        email on time to the following address.-->
-<!--                                    </p>-->
-<!--                                </div>-->
+                                <!--                                <div style="margin-top: 20px;">-->
+                                <!--                                    <strong>-->
+                                <!--                                        <u>Documentation Processing</u>-->
+                                <!--                                    </strong>-->
+                                <!--                                    <p>The above mentioned documentations and test reports have to sent by separate-->
+                                <!--                                        email on time to the following address.-->
+                                <!--                                    </p>-->
+                                <!--                                </div>-->
                                 <!-- Signature Section -->
+                                <br/>
+                                <br/>
+                                <br/>
                                 <div class="row" style="margin-top: 30px;">
                                     <div class="col-6 text-center">
                                         <t t-if="doc.responsible_dr_id">
