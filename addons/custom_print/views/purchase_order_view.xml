@@ -10,8 +10,8 @@
                 <field name="print_layout"/>
             </xpath>
             <xpath expr="//field[@name='fiscal_position_id']" position="after">
-                <field name="responsible_eco_id" invisible="print_layout != 'contract_agreement'"/>
-                <field name="responsible_dr_id" invisible="print_layout != 'contract_agreement'"/>
+                <field name="responsible_eco_id"/>
+                <field name="responsible_dr_id"/>
             </xpath>
             <xpath expr="//notebook" position="inside">
                 <page string="ORDER CONFIRMATION" name="custom_notes">
