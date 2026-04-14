@@ -190,12 +190,14 @@
                                         <t t-if="doc.print_layout == 'contract_agreement'">Quantity /Monthly (Nos)</t>
                                         <t t-else="">Quantity (Nos)</t>
                                     </th>
-                                    <th style="width: 8%;" class="text-center">Weight (kg/Unit)</th>
-                                    <th style="width: 9%;" class="text-center">
-                                        <t t-if="doc.print_layout == 'contract_agreement'">Total Weight (kg) /Monthly
-                                        </t>
-                                        <t t-else="">Total Weight (kg)</t>
-                                    </th>
+                                    <t t-if="doc.print_layout != 'normal_po'">
+                                        <th style="width: 8%;" class="text-center">Weight (kg/Unit)</th>
+                                        <th style="width: 9%;" class="text-center">
+                                            <t t-if="doc.print_layout == 'contract_agreement'">Total Weight (kg) /Monthly
+                                            </t>
+                                            <t t-else="">Total Weight (kg)</t>
+                                        </th>
+                                    </t>
                                     <t t-if="doc.print_layout == 'contract_agreement'">
                                         <th style="width: 8%;" class="text-end">Price /Unit (USD)</th>
                                         <th style="width: 9%;" class="text-end">Monthly total Amount (USD)</th>
@@ -238,17 +240,19 @@
                                                 <span t-field="line.product_qty"/>
                                             </t>
                                         </td>
-                                        <td class="text-center">
-                                            <span t-field="line.weight_unit_kg"/>
-                                        </td>
-                                        <td class="text-center">
-                                            <t t-if="doc.print_layout == 'contract_agreement'">
-                                                <span t-field="line.monthly_total_weight_kg"/>
-                                            </t>
-                                            <t t-else="">
-                                                <span t-field="line.total_weight_kg"/>
-                                            </t>
-                                        </td>
+                                        <t t-if="doc.print_layout != 'normal_po'">
+                                            <td class="text-center">
+                                                <span t-field="line.weight_unit_kg"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-if="doc.print_layout == 'contract_agreement'">
+                                                    <span t-field="line.monthly_total_weight_kg"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span t-field="line.total_weight_kg"/>
+                                                </t>
+                                            </td>
+                                        </t>
 
                                         <t t-if="doc.print_layout == 'contract_agreement'">
                                             <td class="text-end">
