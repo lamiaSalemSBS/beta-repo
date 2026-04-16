@@ -70,6 +70,8 @@ class PurchaseOrderLine(models.Model):
         'price_unit',
         'taxes_id',
         'total_weight_kg',
+        'ref_total_months_amount',
+        'ref_total_months_qty',
         'order_id.print_layout'
     )
     def _compute_amount(self):
@@ -92,5 +94,66 @@ class PurchaseOrderLine(models.Model):
                     'price_total': subtotal + sum(t.get('amount', 0.0) for t in taxes.get('taxes', [])),
                 })
 
+            elif line.order_id.print_layout == 'contract_agreement':
+                subtotal = line.ref_total_months_amount
+
+                taxes = line.taxes_id.compute_all(
+                    line.price_unit,
+                    currency=line.order_id.currency_id,
+                    quantity=line.ref_total_months_qty,
+                    product=line.product_id,
+                    partner=line.order_id.partner_id
+                )
+
+                line.update({
+                    'price_subtotal': subtotal,
+                    'price_tax': sum(t.get('amount', 0.0) for t in taxes.get('taxes', [])),
+                    'price_total': subtotal + sum(t.get('amount', 0.0) for t in taxes.get('taxes', [])),
+                })
+
             else:
                 super(PurchaseOrderLine, line)._compute_amount()
+
+    def _prepare_base_line_for_taxes_computation(self):
+        res = super(PurchaseOrderLine, self)._prepare_base_line_for_taxes_computation()
+        if self.order_id.print_layout == 'reference_po':
+            res['quantity'] = self.total_weight_kg
+        elif self.order_id.print_layout == 'contract_agreement':
+            res['quantity'] = self.ref_total_months_qty
+        return res
+
+    def _prepare_stock_moves(self, picking):
+        """Override to use custom quantities based on print_layout."""
+        self.ensure_one()
+        layout = self.order_id.print_layout
+
+        if layout not in ('reference_po', 'contract_agreement'):
+            return super(PurchaseOrderLine, self)._prepare_stock_moves(picking)
+
+        if layout == 'reference_po':
+            custom_qty = self.total_weight_kg
+        else:
+            custom_qty = self.ref_total_months_qty
+
+        price_unit = self._get_stock_move_price_unit()
+        product_uom_qty, product_uom = self.product_uom._adjust_uom_quantities(
+            custom_qty,
+            self.product_id.uom_id
+        )
+        return [self._prepare_stock_move_vals(picking, price_unit, product_uom_qty, product_uom)]
+
+    def _prepare_account_move_line(self, move=False):
+        """Override to use correct quantity in vendor bill based on print_layout.
+        """
+        res = super()._prepare_account_move_line(move=move)
+        layout = self.order_id.print_layout
+
+        if layout == 'reference_po':
+            res['quantity'] = self.total_weight_kg
+            res['price_unit'] = self.price_unit
+
+        elif layout == 'contract_agreement':
+            res['quantity'] = self.ref_total_months_qty
+            res['price_unit'] = self.price_unit
+
+        return res
