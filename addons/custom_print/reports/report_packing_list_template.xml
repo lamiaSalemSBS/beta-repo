@@ -8,7 +8,11 @@
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr>
 
-                                    <td style="width: 65%; vertical-align: top;">
+<!--                                    <td style="width: 65%; vertical-align: top;">-->
+<!--                                        <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"-->
+<!--                                             style="max-height: 80px; max-width: 200px;" alt="Company Logo"/>-->
+<!--                                    </td>-->
+                                    <td style="width: 65%; vertical-align: top; border:none; padding-top:20px;">
                                         <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
                                              style="max-height: 80px; max-width: 200px;" alt="Company Logo"/>
                                     </td>
@@ -83,6 +87,10 @@
                                     <span t-field="doc.company_id.city"/>,
                                     <span t-field="doc.company_id.state_id.name"/>
                                     <br/>
+                                    <t t-if="doc.company_id.vat">TRN :
+                                        <span t-field="doc.company_id.vat"/>
+                                        <br/>
+                                    </t>
                                     <t t-if="doc.company_id.phone">Tel:
                                         <span t-field="doc.company_id.phone"/>
                                         <br/>
@@ -94,22 +102,26 @@
                                 </td>
                                 <td rowspan="6"
                                     style="border: 1px solid black; padding: 5px; font-size: 12px; vertical-align: top;">
-                                    <span t-field="doc.partner_id.name"/>
+                                    <span t-field="doc.ac_consignee.name"/>
                                     <br/>
-                                    <span t-field="doc.partner_id.street"/>
-                                    <t t-if="doc.partner_id.street2">,
-                                        <span t-field="doc.partner_id.street2"/>
+                                    <span t-field="doc.ac_consignee.street"/>
+                                    <t t-if="doc.ac_consignee.street2">,
+                                        <span t-field="doc.ac_consignee.street2"/>
                                     </t>
                                     <br/>
-                                    <span t-field="doc.partner_id.city"/>,
-                                    <span t-field="doc.partner_id.state_id.name"/>
+                                    <span t-field="doc.ac_consignee.city"/>,
+                                    <span t-field="doc.ac_consignee.state_id.name"/>
                                     <br/>
-                                    <t t-if="doc.partner_id.phone">Tel:
-                                        <span t-field="doc.partner_id.phone"/>
+                                    <t t-if="doc.ac_consignee.vat">TRN No :
+                                        <span t-field="doc.ac_consignee.vat"/>
                                         <br/>
                                     </t>
-                                    <t t-if="doc.partner_id.email">Email:
-                                        <span t-field="doc.partner_id.email"/>
+                                    <t t-if="doc.ac_consignee.phone">Tel:
+                                        <span t-field="doc.ac_consignee.phone"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.ac_consignee.email">Email:
+                                        <span t-field="doc.ac_consignee.email"/>
                                         <br/>
                                     </t>
                                 </td>
@@ -127,7 +139,7 @@
                                     No.
                                 </td>
                                 <td style="border: 1px solid black; padding: 5px;">
-                                    <span t-field="doc.name"/>
+                                    <span t-field="doc.ac_buyer_order_no"/>
                                 </td>
                             </tr>
                             <tr>
@@ -136,7 +148,7 @@
                                     Date
                                 </td>
                                 <td style="border: 1px solid black; padding: 5px;">
-                                    <span t-field="doc.invoice_date"/>
+                                    <span t-field="doc.ac_buyer_order_date"/>
                                 </td>
                             </tr>
                             <tr>
@@ -149,7 +161,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" style="   text-align: center; border: 1px solid black; padding: 5px;">
-                                    <span t-field="doc.invoice_date"/>
+                                    <span t-field="doc.ac_payment_term"/>
                                 </td>
 
                             </tr>
@@ -174,32 +186,11 @@
                                 </td>
 
                                 <td colspan="2" style="border: 1px solid black; padding: 5px; ">
-                                    <span t-field="doc.incoterm_location"/>
+                                    <span t-field="doc.ac_incoterm"/>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td rowspan="6"
-                                    style="border: 1px solid black; padding: 5px; font-size: 12px; vertical-align: top;">
-                                    <span t-field="doc.company_id.name"/>
-                                    <br/>
-                                    <span t-field="doc.company_id.street"/>
-                                    <t t-if="doc.company_id.street2">,
-                                        <span t-field="doc.company_id.street2"/>
-                                    </t>
-                                    <br/>
-                                    <span t-field="doc.company_id.city"/>,
-                                    <span t-field="doc.company_id.state_id.name"/>
-                                    <br/>
-                                    <t t-if="doc.company_id.phone">Tel:
-                                        <span t-field="doc.company_id.phone"/>
-                                        <br/>
-                                    </t>
-                                    <t t-if="doc.company_id.email">Email:
-                                        <span t-field="doc.company_id.email"/>
-                                        <br/>
-                                    </t>
-                                </td>
                                 <td rowspan="6"
                                     style="border: 1px solid black; padding: 5px; font-size: 12px; vertical-align: top;">
                                     <span t-field="doc.partner_id.name"/>
@@ -212,12 +203,41 @@
                                     <span t-field="doc.partner_id.city"/>,
                                     <span t-field="doc.partner_id.state_id.name"/>
                                     <br/>
+                                     <t t-if="doc.partner_id.vat">TRN No :
+                                     <span t-field="doc.partner_id.vat"/>
+                                        <br/>
+                                    </t>
                                     <t t-if="doc.partner_id.phone">Tel:
                                         <span t-field="doc.partner_id.phone"/>
                                         <br/>
                                     </t>
                                     <t t-if="doc.partner_id.email">Email:
                                         <span t-field="doc.partner_id.email"/>
+                                        <br/>
+                                    </t>
+                                </td>
+                                <td rowspan="6"
+                                    style="border: 1px solid black; padding: 5px; font-size: 12px; vertical-align: top;">
+                                    <span t-field="doc.ac_notify.name"/>
+                                    <br/>
+                                    <span t-field="doc.ac_notify.street"/>
+                                    <t t-if="doc.ac_notify.street2">,
+                                        <span t-field="doc.ac_notify.street2"/>
+                                    </t>
+                                    <br/>
+                                    <span t-field="doc.ac_notify.city"/>,
+                                    <span t-field="doc.ac_notify.state_id.name"/>
+                                    <br/>
+                                    <t t-if="doc.ac_notify.vat">TRN No :
+                                        <span t-field="doc.ac_notify.vat"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.ac_notify.phone">Tel:
+                                        <span t-field="doc.ac_notify.phone"/>
+                                        <br/>
+                                    </t>
+                                    <t t-if="doc.ac_notify.email">Email:
+                                        <span t-field="doc.ac_notify.email"/>
                                         <br/>
                                     </t>
                                 </td>
@@ -232,7 +252,7 @@
 
                             <tr>
                                 <td colspan="2" style=" text-align: center;  border: 1px solid black; padding: 5px;">
-                                    <span t-field="doc.incoterm_location"/>
+                                    <span t-field="doc.ac_place_of_loading"/>
                                 </td>
                             </tr>
                             <tr>
@@ -246,7 +266,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" style=" text-align: center;  border: 1px solid black; padding: 5px;">
-                                    <span t-field="doc.incoterm_location"/>
+                                    <span t-field="doc.ac_incoterm_location"/>
                                 </td>
 
                             </tr>
@@ -263,7 +283,7 @@
 
                             <tr>
                                 <td colspan="2" style=" text-align: center;  border: 1px solid black; padding: 5px;">
-                                    <span t-field="doc.incoterm_location"/>
+                                    <span t-field="doc.ac_vessel_name"/>
                                 </td>
 
                             </tr>
@@ -272,7 +292,7 @@
                             <tr>
                                 <td style="border: 1px solid black; padding: 5px;">
                                     <strong>Proforma Invoice No.:</strong>
-                                    <span t-field="doc.name"/>
+                                    <span t-field="doc.ac_form_invoice_seq"/>
                                 </td>
 
 
@@ -284,6 +304,7 @@
                                 <td colspan="2"
                                     style="border: 1px solid black; padding: 5px; font-weight: bold;  text-align: center;  ">
                                     Mode of Transport:
+                                    <span t-field="doc.ac_mode_of_transport"/>
                                 </td>
 
                             </tr>
@@ -291,11 +312,11 @@
 
                                 <td style="border: 1px solid black; padding: 5px;">
                                     <strong>Proforma Invoice Date:</strong>
-                                    <span t-field="doc.date"/>
+                                    <span t-field="doc.ac_proforma_invoice_date"/>
                                 </td>
                                 <td style="border: 1px solid black; padding: 5px;">
                                     <strong>No. and Kind of Packing:</strong>
-                                    <span t-field="doc.name"/>
+                                    <span t-field="doc.no_and_kind_of_backing"/>
                                 </td>
                                 <td colspan="2"
                                     style="border: 1px solid black; padding: 5px; font-weight: bold;  text-align: center;  ">
@@ -307,7 +328,7 @@
                                 <td colspan="4"
                                     style="border: 1px solid black; padding: 5px; vertical-align: top; width:50%;">
                                     <strong>Any Other Details:</strong>
-                                    <!--                                    <span t-field="doc.incoterm_location"/>-->
+                                    <span t-field="doc.any_other_details"/>
                                 </td>
                             </tr>
 
@@ -357,9 +378,9 @@
 
                                     <td style="border: 1px solid black; padding: 5px;" t-esc="i"/>
                                     <td style="border: 1px solid black; padding: 5px;"
-                                        t-esc="line.product_id.default_code or ''"/>
+                                        t-esc="line.product_id.product_tmpl_id.hs_code or ''"/>
                                     <td style="border: 1px solid black; padding: 5px; text-align: left;"
-                                        t-esc="line.name"/>
+                                        t-esc="line.product_id.product_tmpl_id.name"/>
 
 
                                     <td style="border: 1px solid black; padding: 5px;" t-esc="line.quantity"/>
@@ -416,6 +437,7 @@
                             <tr>
                                 <td style="border: 1px solid black; padding: 5px; font-weight: bold;">
                                     Declaration:
+                                    <span t-field="doc.declaration"/>
                                 </td>
                             </tr>
 

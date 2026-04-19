@@ -10,6 +10,8 @@
         <field name="buyer_order_no"/>
         <field name="buyer_order_date"/>
         <field name="proforma_invoice_date"/>
+        <field name="vessel_name"/>
+        <field name="mode_of_transport"/>
       </xpath>
     </field>
   </record>

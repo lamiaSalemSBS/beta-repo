@@ -6,3 +6,6 @@ class SaleOrder(models.Model):
     buyer_order_no = fields.Char(string="Buyer's Order No")
     buyer_order_date = fields.Date(string="Buyer's Order Date")
     proforma_invoice_date = fields.Date(string="Proforma Invoice Date")
+    vessel_name = fields.Char(string="Vessel Name")
+    mode_of_transport = fields.Char(string="Mode of Transport")
+

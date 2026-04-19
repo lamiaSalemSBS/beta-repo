@@ -27,6 +27,7 @@
         'data/paper_format.xml',
         'views/sale_order_view.xml',
         'views/purchase_order_view.xml',
+        'views/account_move_view.xml',
         'reports/report_action.xml',
         'reports/sale_report_template.xml',
         'reports/sale_offer_template.xml',
