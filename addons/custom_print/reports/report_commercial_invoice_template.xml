@@ -335,6 +335,7 @@
 
 
                         </table>
+                        <div style="page-break-before: always;"/>
                         <table style="width: 100%; border-collapse: collapse; border: 1px solid black; margin-top: 1px;">
 
                             <thead>
@@ -464,7 +465,6 @@
                             <!-- Row 3: doc.note + bank info header -->
                             <tr>
                                 <td style="border: 1px solid black; padding: 5px; vertical-align: top;" rowspan="6">
-                                    <span t-field="doc.ref"/>
                                 </td>
                                 <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Account Name</td>
                                 <td style="border: 1px solid black; padding: 5px;">
