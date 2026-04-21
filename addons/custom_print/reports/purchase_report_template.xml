@@ -361,25 +361,9 @@
                         <br/>
                         <br/>
 
-                        <!-- Signature Section -->
-                        <div class="row" style="margin-top: 30px;">
-                            <div class="col-6 text-center">
-                                <t t-if="doc.responsible_dr_id">
-                                    <span t-field="doc.responsible_dr_id.name"/>
-                                    <br/>
-                                    <span>...................................................</span>
-                                    <br/>
-                                </t>
-                            </div>
-                            <div class="col-6 text-center">
-                                <t t-if="doc.responsible_eco_id">
-                                    <span t-field="doc.responsible_eco_id.name"/>
-                                    <br/>
-                                    <span>...................................................</span>
-                                    <br/>
-                                </t>
-                            </div>
-                        </div>
+                        <br/>
+                        <br/>
+
 
                         <!-- Order Confirmation Section -->
                         <div style="margin-top: 40px; page-break-before: avoid;">
@@ -520,44 +504,65 @@
                                 <!--                                        email on time to the following address.-->
                                 <!--                                    </p>-->
                                 <!--                                </div>-->
-                                <br/>
-                                <br/>
-                                <br/>
+<!--                                <br/>-->
+<!--                                <br/>-->
+<!--                                <br/>-->
                                 <!-- Signature Section -->
-                                <div class="row" style="margin-top: 30px;">
-                                    <div class="col-6 text-center">
-                                        <t t-if="doc.responsible_dr_id">
-                                            <span t-field="doc.responsible_dr_id.name"/>
-                                            <br/>
-                                            <span>...................................................</span>
-                                            <br/>
-                                        </t>
-                                    </div>
-                                    <div class="col-6 text-center">
-                                        <t t-if="doc.responsible_eco_id">
-                                            <span t-field="doc.responsible_eco_id.name"/>
-                                            <br/>
-                                            <span>...................................................</span>
-                                            <br/>
-                                        </t>
-                                    </div>
-                                </div>
+<!--                                <div class="row" style="margin-top: 30px;">-->
+<!--                                    <div class="col-6 text-center">-->
+<!--                                        <t t-if="doc.responsible_dr_id">-->
+<!--                                            <span t-field="doc.responsible_dr_id.name"/>-->
+<!--                                            <br/>-->
+<!--                                            <span>...................................................</span>-->
+<!--                                            <br/>-->
+<!--                                        </t>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-6 text-center">-->
+<!--                                        <t t-if="doc.responsible_eco_id">-->
+<!--                                            <span t-field="doc.responsible_eco_id.name"/>-->
+<!--                                            <br/>-->
+<!--                                            <span>...................................................</span>-->
+<!--                                            <br/>-->
+<!--                                        </t>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                         </div>
 
                     </div>
 
-                    <div class="footer">
-                        <div class="row">
-                            <div class="col-4"/>
+                    <div class="footer" style="font-size:14px; width:100%; padding-top:10px;">
+                        <div class="row" style="margin:0; align-items:flex-end;">
+
+                            <!-- Responsible DR -->
                             <div class="col-4 text-center">
-                                <span>Page
-                                    <span class="page"/>
-                                    /
-                                    <span class="topage"/>
-                                </span>
+                                <t t-if="doc.responsible_dr_id">
+                                    <strong style="font-size:18px;">
+                                        <span t-field="doc.responsible_dr_id.name"/>
+                                    </strong>
+                                    <br/>
+                                    <span style="display:inline-block; width:220px; border-top:1px solid #000; margin-top:8px;"></span>
+                                </t>
                             </div>
-                            <div class="col-4"/>
+
+                            <!-- Page Number (CENTER) -->
+                            <div class="col-4 text-center">
+                                <strong style="font-size:15px;">
+                                    Page <span class="page"/> / <span class="topage"/>
+                                </strong>
+                            </div>
+
+                            <!-- Responsible ECO -->
+                            <div class="col-4 text-center">
+                                <t t-if="doc.responsible_eco_id">
+                                    <strong style="font-size:18px;">
+                                        <span t-field="doc.responsible_eco_id.name"/>
+                                    </strong>
+                                    <br/>
+                                    <span style="display:inline-block; width:220px; border-top:1px solid #000; margin-top:8px;"></span>
+                                </t>
+                            </div>
+
                         </div>
                     </div>
                 </t>
