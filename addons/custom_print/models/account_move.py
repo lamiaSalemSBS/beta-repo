@@ -61,3 +61,4 @@ class AccountMove(models.Model):
 
     any_other_details = fields.Text(string="Any Other Details")
     declaration = fields.Text(string="Declaration")
+    ac_picking_out_name = fields.Char(string="Packing List No",)

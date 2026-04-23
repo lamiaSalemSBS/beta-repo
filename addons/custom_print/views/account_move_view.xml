@@ -19,6 +19,7 @@
                     <field name="no_and_kind_of_backing"/>
                     <field name="any_other_details"/>
                     <field name="declaration"/>
+                    <field name="ac_picking_out_name"/>
                     <field name="ac_form_invoice_seq" invisible="1"/>
             </xpath>
         </field>

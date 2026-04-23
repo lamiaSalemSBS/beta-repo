@@ -8,13 +8,13 @@
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr>
 
-<!--                                    <td style="width: 65%; vertical-align: top;">-->
-<!--                                        <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"-->
-<!--                                             style="max-height: 80px; max-width: 200px;" alt="Company Logo"/>-->
-<!--                                    </td>-->
+                                    <!--                                    <td style="width: 65%; vertical-align: top;">-->
+                                    <!--                                        <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"-->
+                                    <!--                                             style="max-height: 80px; max-width: 200px;" alt="Company Logo"/>-->
+                                    <!--                                    </td>-->
                                     <td style="width: 65%; vertical-align: top; border:none; padding-top:20px;">
                                         <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
-                                             style="max-height: 80px; max-width: 200px;" alt="Company Logo"/>
+                                             style="max-height: 80px; max-width: 200px; margin-left:2px;" alt="Company Logo"/>
                                     </td>
 
                                     <td style="width: 35%; text-align: left; vertical-align: top; font-size: 12px; padding-left:70px;">
@@ -70,7 +70,7 @@
 
                                 </td>
                                 <td style="border: 1px solid black; padding: 5px; width:20%;">
-                                    <span t-field="doc.name"/>
+                                    <span t-field="doc.ac_picking_out_name"/>
                                 </td>
                             </tr>
 
@@ -185,7 +185,7 @@
                                     Notify
                                 </td>
 
-                                <td colspan="2" style="border: 1px solid black; padding: 5px; ">
+                                <td colspan="2" style=" text-align: center; border: 1px solid black; padding: 5px; ">
                                     <span t-field="doc.ac_incoterm"/>
                                 </td>
                             </tr>
@@ -203,8 +203,8 @@
                                     <span t-field="doc.partner_id.city"/>,
                                     <span t-field="doc.partner_id.state_id.name"/>
                                     <br/>
-                                     <t t-if="doc.partner_id.vat">TRN No :
-                                     <span t-field="doc.partner_id.vat"/>
+                                    <t t-if="doc.partner_id.vat">TRN No :
+                                        <span t-field="doc.partner_id.vat"/>
                                         <br/>
                                     </t>
                                     <t t-if="doc.partner_id.phone">Tel:
@@ -298,13 +298,13 @@
 
                                 <td style="border: 1px solid black; padding: 5px;">
                                     <strong>Sales Order No.:</strong>
-                                    <span t-field="doc.name"/>
+                                        <span t-esc="doc.invoice_line_ids.mapped('sale_line_ids.order_id.name')[0] if doc.invoice_line_ids and doc.invoice_line_ids.mapped('sale_line_ids.order_id') else ''"/>
                                 </td>
 
                                 <td colspan="2"
                                     style="border: 1px solid black; padding: 5px; font-weight: bold;  text-align: center;  ">
                                     Mode of Transport:
-                                    <span t-field="doc.ac_mode_of_transport"/>
+                                    <!--                                    <span t-field="doc.ac_mode_of_transport"/>-->
                                 </td>
 
                             </tr>
@@ -320,7 +320,7 @@
                                 </td>
                                 <td colspan="2"
                                     style="border: 1px solid black; padding: 5px; font-weight: bold;  text-align: center;  ">
-                                    <span t-field="doc.name"/>
+                                    <span t-field="doc.ac_mode_of_transport"/>
                                 </td>
 
                             </tr>
@@ -443,20 +443,54 @@
 
                         </table>
 
-                        <div class="footer" style="width: 100%; margin-top: 10px;">
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <tr>
-                                    <td style="width: 30%; vertical-align: top; text-align: left; font-size: 12px;">
-                                        For Beta Transformers FZCO,
-                                        <br/>
-                                        <br/>
-                                        Authorized Signatory
-                                        <br/>
-                                        <br/>
-                                        ___________________________
-                                    </td>
-                                </tr>
-                            </table>
+                        <!--                        <div class="footer" style="width: 100%; margin-top: 10px;">-->
+                        <!--                            <table style="width: 100%; border-collapse: collapse;">-->
+                        <!--                                <tr>-->
+                        <!--                                    <td style="width: 30%; vertical-align: top; text-align: left; font-size: 12px;">-->
+                        <!--                                        For Beta Transformers FZCO,-->
+                        <!--                                        <br/>-->
+                        <!--                                        <br/>-->
+                        <!--                                        Authorized Signatory-->
+                        <!--                                        <br/>-->
+                        <!--                                        <br/>-->
+                        <!--                                        ___________________________-->
+                        <!--                                    </td>-->
+                        <!--                                </tr>-->
+                        <!--                            </table>-->
+                        <!--                        </div>-->
+                        <div class="footer"
+                             style="width:100%; position:relative; font-size:12px; top:-5px;">
+                            <!--                        <div class="footer" style="width:100%; margin-top:10px; position:relative; font-size:12px;">-->
+                            <!--                            <div style="text-align:right; font-size:16px;">-->
+                            <!--                                For Beta Transformers FZCO,-->
+                            <!--                                <br/>-->
+                            <!--                                Authorized Signatory-->
+                            <!--                            </div>-->
+                            <!--                            <div style="text-align:right; font-size:16px;">-->
+                            <!--                                <div style="margin-bottom:10px;">-->
+                            <!--                                    For Beta Transformers FZCO,-->
+                            <!--                                </div>-->
+                            <!--                                Authorized Signatory-->
+                            <!--                            </div>-->
+                            <!--                            <div style="text-align:right; font-size:16px;">-->
+                            <!--                                For Beta Transformers FZCO,-->
+                            <!--                                <div style="margin-top:20px;">-->
+                            <!--                                    Authorized Signatory-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+
+                            <div style="position:absolute; top:0; left:48%; transform:translateX(-50%); text-align:center;">
+                                Page
+                                <span class="page"/>
+                                /
+                                <span class="topage"/>
+                            </div>
+                            <div style="text-align:right; font-size:16px;">
+                                For Beta Transformers FZCO,
+                                <div style="margin-top:20px;">
+                                    Authorized Signatory
+                                </div>
+                            </div>
                         </div>
 
                     </div>
