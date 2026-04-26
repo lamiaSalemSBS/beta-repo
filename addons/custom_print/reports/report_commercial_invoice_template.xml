@@ -50,21 +50,21 @@
                                 <h2 style="margin: 0;">COMMERCIAL / TAX INVOICE</h2>
                             </div>
                         </div>
-                        <table style="width: 100%; border-collapse: collapse; border: 1px solid black; margin-bottom: 0px;">
+                        <table style="width: 100%; border-collapse: collapse; border: 1px solid black; margin-bottom: 0px; font-size: 12px;">
 
                             <tr>
 
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;  font-size: 11px; width:30%;">
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px; width:30%;">
                                     Manufacturer / Producer / Beneficiary
                                     <br></br>
                                     (Invoicing Party)
                                 </td>
 
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; width:30%;">
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px; width:30%;">
                                     Consignee
                                 </td>
 
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; width:20%;">Invoice
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px; width:20%;">Invoice
                                     No.
                                 </td>
                                 <td style="border: 1px solid black; padding: 5px; width:20%;">
@@ -123,7 +123,7 @@
                                         <br/>
                                     </t>
                                 </td>
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Invoice Date</td>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;">Invoice Date</td>
                                 <td style="border: 1px solid black; padding: 5px;">
                                     <span t-field="doc.invoice_date"/>
                                 </td>
@@ -132,7 +132,7 @@
                             </tr>
 
                             <tr>
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Buyer's Order
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;">Buyer's Order
                                     No.
                                 </td>
                                 <td style="border: 1px solid black; padding: 5px;">
@@ -141,7 +141,7 @@
                             </tr>
                             <tr>
 
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Buyer's Order
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;">Buyer's Order
                                     Date
                                 </td>
                                 <td style="border: 1px solid black; padding: 5px;">
@@ -151,7 +151,7 @@
                             <tr>
 
                                 <td colspan="2"
-                                    style="   text-align: center; border: 1px solid black; padding: 5px; font-weight: bold;">
+                                    style="   text-align: center; border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;">
                                     Terms
                                     of Payment:
                                 </td>
@@ -164,7 +164,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2"
-                                    style="border: 1px solid black; padding: 5px; font-weight: bold; text-align: center; ">
+                                    style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px; text-align: center; ">
                                     Incoterm:
 
                                 </td>
@@ -174,11 +174,11 @@
 
                             <tr>
 
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;  ">
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;  ">
                                     Buyer
                                 </td>
 
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;  ">
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;  ">
                                     Notify
                                 </td>
 
@@ -239,7 +239,7 @@
                                     </t>
                                 </td>
                                 <td colspan="2"
-                                    style=" text-align: center; font-weight: bold;  border: 1px solid black; padding: 5px;">
+                                    style=" text-align: center; font-weight: bold; font-size: 14px;  border: 1px solid black; padding: 5px;">
                                     Place
                                     of Loading:
                                 </td>
@@ -255,7 +255,7 @@
                             <tr>
 
                                 <td colspan="2"
-                                    style=" font-weight: bold; text-align: center;  border: 1px solid black; padding: 5px;">
+                                    style=" font-weight: bold; font-size: 14px; text-align: center;  border: 1px solid black; padding: 5px;">
 
                                     Place of Discharge:
 
@@ -270,7 +270,7 @@
                             <tr>
 
                                 <td colspan="2"
-                                    style="font-weight: bold;  text-align: center;  border: 1px solid black; padding: 5px;">
+                                    style="font-weight: bold; font-size: 14px;  text-align: center;  border: 1px solid black; padding: 5px;">
 
                                     Vessel Name:
 
@@ -302,7 +302,7 @@
                                         <span t-esc="doc.invoice_line_ids.mapped('sale_line_ids.order_id.name')[0] if doc.invoice_line_ids and doc.invoice_line_ids.mapped('sale_line_ids.order_id') else ''"/>
                                     </td>
                                 <td colspan="2"
-                                    style="border: 1px solid black; padding: 5px; font-weight: bold;  text-align: center;  ">
+                                    style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;  text-align: center;  ">
                                     Mode of Transport:
 <!--                                    <span t-field="doc.ac_mode_of_transport"/>-->
                                 </td>
@@ -319,7 +319,7 @@
                                     <span t-field="doc.no_and_kind_of_backing"/>
                                 </td>
                                 <td colspan="2"
-                                    style="border: 1px solid black; padding: 5px; font-weight: bold;  text-align: center;  ">
+                                    style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;  text-align: center;  ">
                                     <span t-field="doc.ac_mode_of_transport"/>
                                 </td>
 
@@ -362,10 +362,14 @@
                                     <td style="border: 1px solid black; padding: 5px; text-align: left;"
                                         t-esc="line.product_id.product_tmpl_id.name"/>
                                     <td style="border: 1px solid black; padding: 5px;" t-esc="line.quantity"/>
-                                    <td style="border: 1px solid black; padding: 5px;" t-esc="doc.currency_id.symbol + ' ' + str(line.price_unit)"/>
+                                    <td style="border: 1px solid black; padding: 5px;"
+                                            t-esc="doc.currency_id.symbol + ' %.2f' % line.price_unit"/>
+<!--                                        t-esc="doc.currency_id.symbol + ' ' + str(line.price_unit)"/>-->
 <!--                                    <td style="border: 1px solid black; padding: 5px;" t-esc="line.price_unit"/>-->
 <!--                                    <td style="border: 1px solid black; padding: 5px;" t-esc="line.price_subtotal"/>-->
-                                    <td style="border: 1px solid black; padding: 5px;" t-esc="doc.currency_id.symbol + ' ' + str(line.price_unit)"/>
+                                    <td style="border: 1px solid black; padding: 5px;"
+                                            t-esc="doc.currency_id.symbol + ' %.2f' % line.price_subtotal"/>
+<!--                                        t-esc="doc.currency_id.symbol + ' ' + str(line.price_subtotal)"/>-->
                                 </tr>
                             </tbody>
 
@@ -373,7 +377,7 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="3"
-                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold; font-size: 14px;">
                                         Total Quantity (Nos)
                                     </td>
                                     <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;">
@@ -383,17 +387,18 @@
 
                                 <tr>
                                     <td colspan="3"
-                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold; font-size: 14px;">
                                         Total Amount without VAT
 
                                     </td>
                                     <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;"
-                                        t-esc="doc.currency_id.symbol + ' ' + str(doc.amount_untaxed)"/>
+                                        t-esc="doc.currency_id.symbol + ' %.2f' % doc.amount_untaxed"/>
+<!--                                        t-esc="doc.currency_id.symbol + ' ' + str(doc.amount_untaxed)"/>-->
                                 </tr>
 
                                 <tr>
                                     <td colspan="3"
-                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold; font-size: 14px;">
                                         VAT
 
                                     </td>
@@ -403,7 +408,7 @@
 
                                 <tr>
                                     <td colspan="3"
-                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold; font-size: 14px;">
                                         Currency
                                     </td>
                                     <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;"
@@ -412,26 +417,29 @@
 
                                 <tr>
                                     <td colspan="3"
-                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold; font-size: 14px;">
                                         Total Amount
                                     </td>
                                     <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;"
-                                        t-esc="doc.currency_id.symbol + ' ' + str(doc.amount_total)"/>
+                                        t-esc="doc.currency_id.symbol + ' %.2f' % doc.amount_total"/>
+<!--                                        t-esc="doc.currency_id.symbol + ' ' + str(doc.amount_total)"/>-->
+
                                     <!--                                        t-esc="doc.amount_total"/>-->
                                 </tr>
 
                                 <tr>
                                     <td colspan="3"
-                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold; font-size: 14px;">
                                         Total Amount In Words (<span t-esc="doc.currency_id.name"/>)
                                     </td>
                                     <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;"
-                                        t-esc="doc.currency_id.amount_to_text(doc.amount_total)"/>
+                                        t-esc="doc.currency_id.symbol + ' %.2f' % doc.amount_total"/>
+<!--                                        t-esc="doc.currency_id.amount_to_text(doc.amount_total)"/>-->
                                 </tr>
 
                                 <tr>
                                     <td colspan="3"
-                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold;">
+                                        style="border: 1px solid black; padding: 5px; text-align: right; font-weight: bold; font-size: 14px;">
                                         Country of Origin
                                     </td>
                                     <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;"
@@ -443,7 +451,7 @@
                         <table style="width: 100%; border-collapse: collapse; border: 1px solid black; margin-top: 10px;">
 
                             <tr>
-                                <td colspan="3" style="border: 1px solid black; padding: 5px; font-weight: bold;">
+                                <td colspan="3" style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;">
                                     Notes (if any):
                                     <span t-field="doc.any_other_details"/>
                                 </td>
@@ -451,12 +459,12 @@
 
                             <!-- Row 2: Declaration + Bank Details (Bank Details colspan 2) -->
                             <tr>
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; width:50%;">
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px; width:50%;">
                                     Declaration:
                                     <span t-field="doc.declaration"/>
                                 </td>
                                 <td colspan="2"
-                                    style="border: 1px solid black; padding: 5px; font-weight: bold; width:50%;">
+                                    style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px; width:50%;">
                                     Bank Details
                                 </td>
                             </tr>
@@ -465,21 +473,21 @@
                             <tr>
                                 <td style="border: 1px solid black; padding: 5px; vertical-align: top;" rowspan="6">
                                 </td>
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Account Name</td>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;">Account Name</td>
                                 <td style="border: 1px solid black; padding: 5px;">
                                     <span t-field="doc.partner_bank_id.acc_holder_name"/>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Bank</td>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;">Bank</td>
                                 <td style="border: 1px solid black; padding: 5px;">
                                     <span t-field="doc.partner_bank_id.bank_name"/>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Account Number
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;">Account Number
                                 </td>
                                 <td style="border: 1px solid black; padding: 5px;">
                                     <span t-field="doc.partner_bank_id.acc_number"/>
@@ -487,21 +495,21 @@
                             </tr>
 
                             <tr>
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">Currency</td>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;">Currency</td>
                                 <td style="border: 1px solid black; padding: 5px;">
                                     <span t-field="doc.partner_bank_id.currency_id.name"/>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">IBAN</td>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;">IBAN</td>
                                 <td style="border: 1px solid black; padding: 5px;">
                                     <span t-field="doc.partner_bank_id.iban"/>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td style="border: 1px solid black; padding: 5px; font-weight: bold;">SWIFT Code</td>
+                                <td style="border: 1px solid black; padding: 5px; font-weight: bold; font-size: 14px;">SWIFT Code</td>
                                 <td style="border: 1px solid black; padding: 5px;">
                                     <span t-field="doc.partner_bank_id.cx_code"/>
                                 </td>

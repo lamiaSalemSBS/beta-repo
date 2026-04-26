@@ -4,23 +4,31 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[2]" position="inside">
-                    <field name="ac_buyer_order_no"/>
-                    <field name="ac_proforma_invoice_date"/>
-                    <field name="ac_buyer_order_date"/>
-                    <field name="ac_payment_term"/>
-                    <field name="ac_incoterm"/>
-                    <field name="ac_place_of_loading"/>
-                    <field name="ac_incoterm_location"/>
-                    <field name="ac_vessel_name"/>
-                    <field name="ac_mode_of_transport"/>
-                    <field name="ac_consignee"/>
-                    <field name="ac_notify"/>
-                    <field name="no_and_kind_of_backing"/>
-                    <field name="any_other_details"/>
-                    <field name="declaration"/>
-                    <field name="ac_picking_out_name"/>
-                    <field name="ac_form_invoice_seq" invisible="1"/>
+            <xpath expr="//notebook" position="inside">
+                <page string="Buyer Order" name="buyer_order">
+                    <group>
+                        <group>
+                            <field name="ac_buyer_order_no"/>
+                            <field name="ac_proforma_invoice_date"/>
+                            <field name="ac_buyer_order_date"/>
+                            <field name="ac_payment_term"/>
+                            <field name="ac_incoterm"/>
+                            <field name="ac_place_of_loading"/>
+                            <field name="ac_incoterm_location"/>
+                            <field name="ac_vessel_name"/>
+                        </group>
+                        <group>
+                            <field name="ac_mode_of_transport"/>
+                            <field name="ac_consignee"/>
+                            <field name="ac_notify"/>
+                            <field name="no_and_kind_of_backing"/>
+                            <field name="any_other_details"/>
+                            <field name="declaration"/>
+                            <field name="ac_picking_out_name"/>
+                            <field name="ac_form_invoice_seq" invisible="1"/>
+                        </group>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>

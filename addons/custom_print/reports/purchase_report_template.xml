@@ -180,7 +180,7 @@
                         </div>
 
                         <!-- Order Lines Table -->
-                        <table class="table table-bordered" style="margin-top: 15px;">
+                        <table class="table table-bordered" style="margin-top: 15px; font-size: 10px !important;">
                             <thead style="background-color: #f0f0f0;">
                                 <tr>
                                     <th style="width: 4%;">Sl.No</th>
@@ -199,18 +199,18 @@
                                         </th>
                                     </t>
                                     <t t-if="doc.print_layout == 'contract_agreement'">
-                                        <th style="width: 8%;" class="text-end">Price /Unit (USD)</th>
-                                        <th style="width: 9%;" class="text-end">Monthly total Amount (USD)</th>
+                                        <th style="width: 8%;" class="text-end">Price /Unit </th>
+                                        <th style="width: 9%;" class="text-end">Monthly total Amount </th>
                                         <th style="width: 8%;" class="text-center">Months contract Qty (Nos)</th>
                                         <th style="width: 9%;" class="text-center">Months contract Total Weight (kg)
                                         </th>
-                                        <th style="width: 9%;" class="text-end">Months contract amount (USD)</th>
+                                        <th style="width: 9%;" class="text-end">Months contract amount </th>
                                         <th style="width: 8%;" class="text-center">Delivery Terms</th>
                                     </t>
                                     <t t-else="">
                                         <th style="width: 10%;" class="text-center">Delivery Date</th>
-                                        <th style="width: 8%;" class="text-end">Unit Price (USD)</th>
-                                        <th style="width: 8%;" class="text-end">Amount (USD)</th>
+                                        <th style="width: 8%;" class="text-end">Unit Price </th>
+                                        <th style="width: 8%;" class="text-end">Amount </th>
                                     </t>
                                 </tr>
                             </thead>
@@ -301,7 +301,7 @@
                             </tbody>
                         </table>
 
-                        <table class="table table-bordered" style="margin-top: 0; width: 100%;">
+                        <table class="table table-bordered" style="margin-top: 0; width: 100%; page-break-inside: avoid;">
                             <tr style="background-color: #f0f0f0;">
                                 <td style="width: 75%;" class="text-center">
                                     <strong>Sub Total</strong>
@@ -312,31 +312,33 @@
                                     </strong>
                                 </td>
                             </tr>
-                            <tr style="background-color: #f0f0f0;">
-                                <td class="text-center">
-                                    <strong>VAT</strong>
-                                </td>
-                                <td class="text-end">
-                                    <strong>
-                                        <t t-if="doc.amount_untaxed > 0">
-                                            <t t-set="vat_percent"
-                                               t-value="(doc.amount_tax / doc.amount_untaxed) * 100"/>
-                                            <span t-esc="'{:.2f}%'.format(vat_percent)"/>
-                                        </t>
-                                        <t t-if="doc.amount_untaxed == 0">0.00%</t>
-                                    </strong>
-                                </td>
-                            </tr>
-                            <tr style="background-color: #f0f0f0;">
-                                <td class="text-center">
-                                    <strong>Vat Amount</strong>
-                                </td>
-                                <td class="text-end">
-                                    <strong>
-                                        <span t-field="doc.amount_tax"/>
-                                    </strong>
-                                </td>
-                            </tr>
+                            <t t-if="doc.amount_tax > 0">
+                                <tr style="background-color: #f0f0f0;">
+                                    <td class="text-center">
+                                        <strong>VAT</strong>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong>
+                                            <t t-if="doc.amount_untaxed > 0">
+                                                <t t-set="vat_percent"
+                                                   t-value="(doc.amount_tax / doc.amount_untaxed) * 100"/>
+                                                <span t-esc="'{:.2f}%'.format(vat_percent)"/>
+                                            </t>
+                                            <t t-if="doc.amount_untaxed == 0">0.00%</t>
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr style="background-color: #f0f0f0;">
+                                    <td class="text-center">
+                                        <strong>Vat Amount</strong>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong>
+                                            <span t-field="doc.amount_tax"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </t>
                             <tr style="background-color: #f0f0f0;">
                                 <td class="text-center">
                                     <strong>Total Amount</strong>

@@ -131,9 +131,9 @@ class PurchaseOrderLine(models.Model):
             return super(PurchaseOrderLine, self)._prepare_stock_moves(picking)
 
         if layout == 'reference_po':
-            custom_qty = self.total_weight_kg
+            custom_qty = self.product_qty
         else:
-            custom_qty = self.ref_total_months_qty
+            custom_qty = self.product_qty
 
         price_unit = self._get_stock_move_price_unit()
         product_uom_qty, product_uom = self.product_uom._adjust_uom_quantities(
