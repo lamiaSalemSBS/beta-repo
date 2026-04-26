@@ -256,7 +256,7 @@
 
                                         <t t-if="doc.print_layout == 'contract_agreement'">
                                             <td class="text-end">
-                                                <span t-field="line.price_unit"/>
+                                                <span t-field="line.price_unit" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
                                             </td>
                                             <td class="text-end">
                                                 <span t-field="line.monthly_amount"/>
@@ -289,7 +289,7 @@
                                                 </t>
                                             </td>
                                             <td class="text-end">
-                                                <span t-field="line.price_unit"/>
+                                                <span t-field="line.price_unit" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
                                             </td>
                                             <td class="text-end">
                                                 <span t-field="line.price_subtotal"/>
