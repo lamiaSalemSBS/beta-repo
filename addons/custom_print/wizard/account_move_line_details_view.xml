@@ -1,0 +1,29 @@
+<odoo>
+    <record id="view_account_move_line_details_wizard_form" model="ir.ui.view">
+        <field name="name">account.move.line.details.wizard.form</field>
+        <field name="model">account.move.line.details.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Line Details">
+                <group>
+                    <group>
+                        <field name="move_line_id" invisible="1"/>
+                        <field name="qty"/>
+                        <field name="length"/>
+                        <field name="width"/>
+                        <field name="height"/>
+                    </group>
+                    <group>
+
+                        <field name="net_weight"/>
+                        <field name="gross_weight"/>
+                        <field name="total_gross_weight_with_packaging"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_save" string="Save" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

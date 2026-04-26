@@ -62,3 +62,34 @@ class AccountMove(models.Model):
     any_other_details = fields.Text(string="Any Other Details")
     declaration = fields.Text(string="Declaration")
     ac_picking_out_name = fields.Char(string="Packing List No",)
+
+
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
+
+    line_qty = fields.Float(string="Quantity")
+    line_length = fields.Float(string="Length MM")
+    line_width = fields.Float(string="Width MM")
+    line_height = fields.Float(string="Height MM")
+    line_net_weight = fields.Float(string="Net Weight (Kg)")
+    line_gross_weight = fields.Float(string="Gross Weight")
+    line_total_gross_weight_with_packaging = fields.Float(string="Total Gross Weight With Packaging")
+
+    def action_open_line_details(self):
+        self.ensure_one()
+        return {
+            'name': 'Line Details',
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.move.line.details.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_move_line_id': self.id,
+                'default_length': self.line_length,
+                'default_width': self.line_width,
+                'default_height': self.line_height,
+                'default_net_weight': self.line_net_weight,
+                'default_gross_weight': self.line_gross_weight,
+                'default_total_gross_weight_with_packaging': self.line_total_gross_weight_with_packaging,
+            }
+        }

@@ -24,7 +24,9 @@
         'sbs_custom_sale_order',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'data/paper_format.xml',
+        'wizard/account_move_line_details_view.xml',
         'views/sale_order_view.xml',
         'views/purchase_order_view.xml',
         'views/account_move_view.xml',

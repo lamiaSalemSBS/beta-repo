@@ -30,6 +30,9 @@
                     </group>
                 </page>
             </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='price_subtotal']" position="after">
+                <button name="action_open_line_details" string="Details" type="object" icon="fa-list" class="btn-secondary"/>
+            </xpath>
         </field>
     </record>
 </odoo>
