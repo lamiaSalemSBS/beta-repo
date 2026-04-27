@@ -291,8 +291,8 @@
 
                             <tr>
                                 <td style="border: 1px solid black; padding: 5px;">
-                                    <strong>Proforma Invoice No.:</strong>
-                                    <span t-field="doc.ac_form_invoice_seq"/>
+                                    <strong>Commercial Invoice No.:</strong>
+                                    <span t-field="doc.name"/>
                                 </td>
 
 
@@ -311,8 +311,8 @@
                             <tr>
 
                                 <td style="border: 1px solid black; padding: 5px;">
-                                    <strong>Proforma Invoice Date:</strong>
-                                    <span t-field="doc.ac_proforma_invoice_date"/>
+                                    <strong>Commercial Invoice Date:</strong>
+                                    <span t-field="doc.invoice_date"/>
                                 </td>
                                 <td style="border: 1px solid black; padding: 5px;">
                                     <strong>No. and Kind of Packing:</strong>

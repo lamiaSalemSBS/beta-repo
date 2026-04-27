@@ -437,7 +437,8 @@
                                         Total Amount In Words (<span t-esc="doc.currency_id.name"/>)
                                     </td>
                                     <td colspan="3" style="border: 1px solid black; padding: 5px; text-align: left;"
-                                        t-esc="doc.currency_id.symbol + ' {:,.2f}'.format(doc.amount_total)"/>
+                                        t-esc="doc.currency_id.amount_to_text(doc.amount_total)"/>
+<!--                                        t-esc="doc.currency_id.symbol + ' {:,.2f}'.format(doc.amount_total)"/>-->
 <!--                                        t-esc="doc.currency_id.symbol + ' %.2f' % doc.amount_total"/>-->
 <!--                                        t-esc="doc.currency_id.amount_to_text(doc.amount_total)"/>-->
                                 </tr>
